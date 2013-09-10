@@ -4,7 +4,7 @@
 
 % ¤¤ Oversaettelse og tegnsaetning ¤¤ %
 \usepackage[utf8]{inputenc}					% Input-indkodning af tegnsaet (UTF8)
-\usepackage[danish]{babel}					% Dokumentets sprog
+\usepackage[english]{babel}					% Dokumentets sprog
 \usepackage[T1]{fontenc}					% Output-indkodning af tegnsaet (T1)
 \usepackage{ragged2e,anyfontsize}			% Justering af elementer
 \usepackage{fixltx2e}						% Retter forskellige fejl i LaTeX-kernen
@@ -32,7 +32,7 @@
 \sisetup{locale=DE}							% Opsaetning af \SI (DE for komma som decimalseparator) 
 
 % ¤¤ Referencer og kilder ¤¤ %
-\usepackage[danish]{varioref}				% Muliggoer bl.a. krydshenvisninger med sidetal (\vref)
+\usepackage[english]{varioref}				% Muliggoer bl.a. krydshenvisninger med sidetal (\vref)
 \usepackage{natbib}							% Udvidelse med naturvidenskabelige citationsmodeller
 %\usepackage{xr}							% Referencer til eksternt dokument med \externaldocument{<NAVN>}
 %\usepackage{glossaries}					% Terminologi- eller symbolliste (se mere i Daleifs Latex-bog)
@@ -45,7 +45,7 @@
 \pretolerance=2500 							% Justering af afstand mellem ord (hoejt tal, mindre orddeling og mere luft mellem ord)
 
 % Kommentarer og rettelser med \fxnote. Med 'final' i stedet for 'draft' udloeser hver note en error i den faerdige rapport.
-\usepackage[footnote,draft,danish,silent,nomargin]{fixme}		
+\usepackage[footnote,draft,english,silent,nomargin]{fixme}		
 
 
 %%%% CUSTOM SETTINGS %%%%
@@ -64,10 +64,6 @@
 \bibpunct[,]{[}{]}{;}{a}{,}{,} 				% Definerer de 6 parametre ved Harvard henvisning (bl.a. parantestype og seperatortegn)
 \bibliographystyle{bibtex/harvard}			% Udseende af litteraturlisten.
 
-% ¤¤ Indholdsfortegnelse ¤¤ %
-\setsecnumdepth{subsection}		 			% Dybden af nummerede overkrifter (part/chapter/section/subsection)
-\maxsecnumdepth{subsection}					% Dokumentklassens graense for nummereringsdybde
-\settocdepth{subsection} 					% Dybden af indholdsfortegnelsen
 
 % ¤¤ Lister ¤¤ %
 \setlist{
@@ -91,76 +87,6 @@
 \captionwidth{\linewidth}					% Bredden af figurteksten
 \setlength{\belowcaptionskip}{10pt}			% Afstand under figurteksten
 		
-% ¤¤ Navngivning ¤¤ %
-\addto\captionsdanish{
-	\renewcommand\appendixname{Appendiks}
-	\renewcommand\contentsname{Indholdsfortegnelse}	
-	\renewcommand\appendixpagename{Appendiks}
-	\renewcommand\appendixtocname{Appendiks}
-	\renewcommand\cftchaptername{\chaptername~}				% Skriver "Kapitel" foran kapitlerne i indholdsfortegnelsen
-	\renewcommand\cftappendixname{\appendixname~}			% Skriver "Appendiks" foran appendiks i indholdsfortegnelsen
-}
-
-% ¤¤ Kapiteludssende ¤¤ %
-\definecolor{numbercolor}{gray}{0.7}		% Definerer en farve til brug til kapiteludseende
-\newif\ifchapternonum
-
-\makechapterstyle{E4}{					% Definerer kapiteludseende frem til ...
-  \renewcommand\beforechapskip{0pt}
-  \renewcommand\printchaptername{}
-  \renewcommand\printchapternum{}
-  \renewcommand\printchapternonum{\chapternonumtrue}
-  \renewcommand\chaptitlefont{\fontfamily{pbk}\fontseries{db}\fontshape{n}\fontsize{25}{35}\selectfont\raggedleft}
-  \renewcommand\chapnumfont{\fontfamily{pbk}\fontseries{m}\fontshape{n}\fontsize{1in}{0in}\selectfont\color{numbercolor}}
-  \renewcommand\printchaptertitle[1]{%
-    \noindent
-    \ifchapternonum
-    \begin{tabularx}{\textwidth}{X}
-    {\let\\\newline\chaptitlefont ##1\par} 
-    \end{tabularx}
-    \par\vskip-2.5mm\hrule
-    \else
-    \begin{tabularx}{\textwidth}{Xl}
-    {\parbox[b]{\linewidth}{\chaptitlefont ##1}} & \raisebox{-15pt}{\chapnumfont \thechapter}
-    \end{tabularx}
-    \par\vskip2mm\hrule
-    \fi
-  }
-}											% ... her
-
-\chapterstyle{E4}						% Valg af kapiteludseende - Google 'memoir chapter styles' for alternativer
-
-% ¤¤ Sidehoved ¤¤ %
-
-\makepagestyle{IHA}							% Definerer sidehoved og sidefod udseende frem til ...
-\makepsmarks{IHA}{%
-	\createmark{chapter}{left}{shownumber}{}{. \ }
-	\createmark{section}{right}{shownumber}{}{. \ }
-	\createplainmark{toc}{both}{\contentsname}
-	\createplainmark{lof}{both}{\listfigurename}
-	\createplainmark{lot}{both}{\listtablename}
-	\createplainmark{bib}{both}{\bibname}
-	\createplainmark{index}{both}{\indexname}
-	\createplainmark{glossary}{both}{\glossaryname}
-}
-\nouppercaseheads											% Ingen Caps oenskes
-
-\makeevenhead{IHA}{BROS}{}{\leftmark}				% Definerer lige siders sidehoved (\makeevenhead{Navn}{Venstre}{Center}{Hoejre})
-\makeoddhead{IHA}{\rightmark}{}{Ingeniørhøjskolen i Aarhus}		% Definerer ulige siders sidehoved (\makeoddhead{Navn}{Venstre}{Center}{Hoejre})
-\makeevenfoot{IHA}{\thepage}{}{}							% Definerer lige siders sidefod (\makeevenfoot{Navn}{Venstre}{Center}{Hoejre})
-\makeoddfoot{IHA}{}{}{\thepage}								% Definerer ulige siders sidefod (\makeoddfoot{Navn}{Venstre}{Center}{Hoejre})
-\makeheadrule{IHA}{\textwidth}{0.5pt}						% Tilfoejer en streg under sidehovedets indhold
-\makefootrule{IHA}{\textwidth}{0.5pt}{1mm}					% Tilfoejer en streg under sidefodens indhold
-
-\copypagestyle{IHAchap}{IHA}								% Sidehoved for kapitelsider defineres som standardsider, men med blank sidehoved
-\makeoddhead{IHAchap}{}{}{}
-\makeevenhead{IHAchap}{}{}{}
-\makeheadrule{IHAchap}{\textwidth}{0pt}
-\aliaspagestyle{chapter}{IHAchap}							% Den ny style vaelges til at gaelde for chapters
-															% ... her
-															
-\pagestyle{IHA}												% Valg af sidehoved og sidefod
-
 
 %%%% CUSTOM COMMANDS %%%%
 
