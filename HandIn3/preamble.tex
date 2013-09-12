@@ -9,6 +9,7 @@
 \usepackage{ragged2e,anyfontsize}			% Justering af elementer
 \usepackage{fixltx2e}						% Retter forskellige fejl i LaTeX-kernen
 \usepackage[bf, small, raggedright, compact]{titlesec}
+\usepackage{lastpage}
 																			
 % ¤¤ Figurer og tabeller (floats) ¤¤ %
 \usepackage{graphicx} 						% Haandtering af eksterne billeder (JPG, PNG, EPS, PDF)
@@ -67,3 +68,6 @@
   {\arabic{section}\quad}% <label>
   {0em}% <sep>
   {}% <before code>
+  
+\makeevenfoot{plain}{}{Page \thepage\ of \pageref{LastPage}}{}
+\makeoddfoot{plain}{}{Page \thepage\ of \pageref{LastPage}}{}
