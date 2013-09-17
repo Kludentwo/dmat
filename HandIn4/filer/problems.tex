@@ -9,13 +9,46 @@
 \item $S={x\in\mathbb{Q}\ :\ -1\leq x\leq 1}$
 \item $S={p\ : \ p is prime} = {2,3,5,7,9,11,13,...}$
 \end{enumerate}
-
+First we look at the definition:\\
+A set is well-ordered if every nonempty subset has a least element.\\
+Then we look at the sets:\\
+\begin{enumerate}[a.]
+\item S is not well-ordered set because we can make a subset that doesn't contain a least element. e.g. x > -10. 
+\item S is a well-ordered set because we can always produce a least element from the subsets of S.
+\item S is not a well-ordered set because we can make a subset that doesn't contain a least element. e.g. 0 < x $\leq$ 1.
+\item S is a well-ordered set because we can always produce a least element from the subsets of S.
+\end{enumerate}
 
 %----------------------------------------------------------------------------------------
 % Problem 2
 %----------------------------------------------------------------------------------------
 \section{Use mathematical induction to prove that $1+5+9+...+(4n-3)=2n^2-n$ for every positive integer n.}
-
+We have $n\in \mathbb{Z}^{+}$.\\
+We start by establishing the base case:
+\begin{equation}
+(4n-3) = 2n^2-n \Rightarrow (4*1-3) = 2*1^2-1 \Rightarrow 1 = 1
+\end{equation}
+$p(k)\Rightarrow p(k+1)$
+Assume $p(k)$\\
+$p(k+1) \equiv p(k)+(4n-3) \equiv 2k^2-k+(4(k+1)-3)$\\
+\begin{equation}
+2k^2-k+4k+1
+\end{equation}
+\begin{equation}
+2k^2-k+4k+1+1-1
+\end{equation}
+\begin{equation}
+2k^2+4k+2-k-1
+\end{equation}
+\begin{equation}
+2(k^2+2k+1)-(k+1)
+\end{equation}
+\begin{equation}
+2(k^2+2k+1)-(k+1)
+\end{equation}
+\begin{equation}
+2(k+1)^2-(k+1)
+\end{equation}
 
 %----------------------------------------------------------------------------------------
 % Problem 3
@@ -34,8 +67,12 @@ Note: you will need to really work with inequalities.
 % Problem 5
 %----------------------------------------------------------------------------------------
 \section{Use the Strong Principle of Mathmatical Induction to prove the following:}
-Let $S={i\in\mathbb{Z}\ : \ i\geq2}$\\
-and let P be a subset of S with the properties that $2,3\inP$ and if $n\inS$, then either $n\inP$ or $n=ab$, where $a,b\inS$.
+Let $S={i\in \mathbb{Z}\ : \ i\geq 2}$ and let P be a subset of S with the properties that 
+$2 , 3 \in P$ and if 
+$n\in S$, then either 
+$n\in P$ or 
+$n=ab$, where 
+$a,b\in S$.
 Then every element of S either belongs to P or it can be expressed as a product of elements of P.\\
 Note: read Theorem 11.17, though the proof of 11.17 is not the proof of this question.
 
