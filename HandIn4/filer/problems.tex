@@ -44,12 +44,9 @@ $p(k+1) \equiv p(k)+(4n-3) \equiv 2k^2-k+(4(k+1)-3)$\\
 2(k^2+2k+1)-(k+1)
 \end{equation}
 \begin{equation}
-2(k^2+2k+1)-(k+1)
-\end{equation}
-\begin{equation}
 2(k+1)^2-(k+1)
 \end{equation}
-We see that his is our assumption for k + 1
+We see that his is our assumption for k + 1.{\Huge\Bat}
 
 
 %----------------------------------------------------------------------------------------
@@ -73,7 +70,7 @@ $\ \ >k^3+3k^2+3k+1$ because $4k^2 > 1$\\
 $\ \ =(k+1)^3$\\
 $\ \ =m^3$\\
 Which is a contradiction!\\
-This proves that $2^n > n^3$ for every integer $n\geq 10$
+This proves that $2^n > n^3$ for every integer $n\geq 10$.{\Huge\Bat}
 %----------------------------------------------------------------------------------------
 % Problem 4
 %----------------------------------------------------------------------------------------
@@ -86,14 +83,12 @@ $\ \  = 2^{2k+2}-1$\\
 $\ \  = 2*2*2^{2k}-1$\\
 $\ \  = 4*2^{2k}-1$\\
 $\ \  = 4*2^{2k}-1+4-4$\\
-$\ \  = 4*2^{2k}-1+4-4$\\
 $\ \  = 4*2^{2k}+3-4$\\
 $\ \  = 4*(2^{2k}-1)+3$\\
-$\ \  = 4*(2^{2k}-1)+3$\\
-$\ \  = 4*(3M)+3$\\
-$\ \  = 3*(4M+1)$\\
+$\ \  = 4*(3m)+3$\\
+$\ \  = 3*(4m+1)$\\
 Which is divisable by 3.\\
-so p(n) is always divisable by 3 forall $n\in \mathbb{Z}^{+}$
+so p(n) is always divisable by 3 forall $n\in \mathbb{Z}^{+}$.{\Huge\Bat}
 
 %----------------------------------------------------------------------------------------
 % Problem 5
@@ -107,6 +102,29 @@ $n=ab$, where
 $a,b\in S$.
 Then every element of S either belongs to P or it can be expressed as a product of elements of P.\\
 Note: read Theorem 11.17, though the proof of 11.17 is not the proof of this question.
+\ \\
+Let $Let S = {i\in \mathbb{Z} : i\geq 2}$ and $P\subseteq S$ and $2,3 \in P$\\
+
+Base Case:\\
+n = 2 then $n\in P$.\\
+n = 3 then $n\in P$.\\
+The basecase is trivial.\\
+
+Next up we assume the strong induction step:\\
+$\forall x \in S, Q(k)$ is true.\\
+for Q(k+1) we make 2 cases:\\
+\textbf{Case 1:}\\
+$(k + 1)\in P$ this means we have arrived at the end of our proof.\\
+\textbf{Case 2:}\\
+$(k+1)\notin P$ then $(k + 1)=a * b$ where $a,b\in S$\\
+This means that a and b must be larger or equal to 2 (as they are a part of S) and they must be smaller than k + 1. We write:\\
+$k+1>a\geq 2$ and $k+1>b\geq 2$.\\
+When substituting a and b into Q(k) we see that Q(a) and Q(b) is in the range of Q(k) which we assumed to be true.\\
+Then a and b either belongs to P or is a product of the elements in P. This leads to:
+$k + 1 = a * b$ is a product of elements in P.\\
+This proves that:\\
+Every element of S either belongs to P or it can  be expressed as a product of elements of P.{\Huge\Bat}
+
 
 
 %----------------------------------------------------------------------------------------
@@ -114,7 +132,20 @@ Note: read Theorem 11.17, though the proof of 11.17 is not the proof of this que
 %----------------------------------------------------------------------------------------
 \section{Use the Strong Principle of Mathematical Induction to prove that for each integer $n\geq 12$, there are non-negative integers a and b such that $n = 3a + 7b$.} 
 Note: this uses generalized strong induction and minimum counterexamples.
+Given is: $n\geq 12$ and $a,b\in \mathbb{Z}^{+}$ and $n=3a+7b$\\
+We see that p(n): 12 = 3 * 4 + 7 * 0.\\
+But know p(k) does not help us reach k + 1 because our smallest known step is 3.\\
+p(n+3) = 15.\\
+We have to establish the following base cases:\\
+\textbf{Case 1: }
+$n : 12 = 3 * 4 + 7 * 0$\\
+\textbf{Case 2: }
+$n : 13 = 3 * 2 + 7 * 1$\\
+\textbf{Case 3: }
+$n : 14 = 3 * 0 + 7 * 2$\\
 
-
-
+\textbf{Strong induction step:}\\
+It holds for n = 15, because it holds for 12 and we can express it as n+3.\\
+Now we know that we can get every positive integer $\geq 15$ from our 3 base cases.\\
+Therefore p(n) is true for all $n\geq 12$.{\Huge\Bat}
  
