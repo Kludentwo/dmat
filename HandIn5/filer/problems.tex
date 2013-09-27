@@ -79,8 +79,9 @@ We see that 3 has 4 ordered partitions, 4 has 8 ordered partitions and 5 has 16 
 For every odd integer n, the integer 3n+1 is even.\\
 $\forall n\in \mathbb{Z} : 2\nmid n , 2|3n+1$\\
 \textbf{Part (b)} \\
-Prove that the statement is true.
-$3(2k+1)+1 = 6k +3 +1 = 2(3k+2)$.\includegraphics[scale=0.70]{billeder/xzibit}
+Prove that the statement is true.\\
+For the statement to be true if must be of the form 2a. We substitute n with the odd form k+1 reduce the statement:\\
+$3(2k+1)+1 = 6k +3 +1 = 2(3k+2)$. It ends up being divisible by 2 and therefore the statement is true.\includegraphics[scale=0.70]{billeder/xzibit}
 
 
 %----------------------------------------------------------------------------------------
@@ -90,9 +91,10 @@ $3(2k+1)+1 = 6k +3 +1 = 2(3k+2)$.\includegraphics[scale=0.70]{billeder/xzibit}
 There exists a positive integer n such that $3n+2^{n-2}$is odd.\\
 $\exists n \in \mathbb{Z} : 2|n, 2\nmid 3n+2^{n-2}$\\
 \textbf{Part (b)} \\
-Prove that the statement is true.
-$3*2k+2^{2k-2} = 6k+4^{k-1} = 6k+4^k*1/4$\\
-$6k+1^k = 6k + 1 = 2(3k) + 1$.\includegraphics[scale=0.70]{billeder/xzibit}
+Prove that the statement is true.\\
+For the statement to be true we need to find just one example because it states that there exists at least one:\\
+Consider $n=2$
+$3*2+2^{2-2}=6+2^0=6+1=7$ Therefore the statement is true because we found one that renders it true..\includegraphics[scale=0.70]{billeder/xzibit}
 
 
 %----------------------------------------------------------------------------------------
@@ -101,10 +103,10 @@ $6k+1^k = 6k + 1 = 2(3k) + 1$.\includegraphics[scale=0.70]{billeder/xzibit}
 \section{Prove or disprove: The sum of every five consecutive integers is divisable by 5 and the sum of no six consecutive integers is divisable by 6}
 We start with the sum of every five consectutive integers whether it is divisable by 5:\\
 $(n)+(n+1)+(n+2)+(n+3)+(n+4) = 5n+10 = 5(n+2)$\\
-So it is true. \includegraphics[scale=0.70]{billeder/xzibit}\\
+This is always divisible with 5 so it is true. \includegraphics[scale=0.70]{billeder/xzibit}\\
 We look at the sum of six consecutive integers whether it is divisable by 6:\\
 $(n)+(n+1)+(n+2)+(n+3)+(n+4)+(n+5) = 6(n+2)+3$\\
-This is false. It is disproven. \includegraphics[scale=0.70]{billeder/xzibit}\\
+There is always +3 so it will not be divisible by 6 and it is false. It is disproven. \includegraphics[scale=0.70]{billeder/xzibit}\\
 
 
 %----------------------------------------------------------------------------------------
@@ -119,20 +121,21 @@ This is false. It is disproven. \includegraphics[scale=0.70]{billeder/xzibit}\\
 \begin{enumerate}[(a)]
 \item Based on the three statements given above, what is the next statement suggested by these?
 1 + 3 + 5 + 7 + 9 + 11 = 36.
-\item What conjecture is suggested by these statements?
-$1 + 3 + 5 + 7 + 9 + ... + 2k + 1 = (k + 1)^2$. $\forall k \in \mathbb{Z}^{+}$
+\item What conjecture is suggested by these statements?\\
+$\forall k \in \mathbb{Z}^{+}$. $1 + 3 + 5 + 7 + 9 + ... + 2k + 1 = (k + 1)^2$. 
 \item Verify the conjecture in (b) using induction.
 \end{enumerate}
 \textbf{Base Case:}\\
 Let k be 0: $2*0 + 1 = 1^2 => 1 = 1$ so this holds True.\\
 We assume p(k)
 $1 + 3 + 5 + 7 + 9 + ... + 2k + 1 = (k + 1)^2$.\\
-We see that $1 + 3 + 5 + 7 + 9 + ...$ can be replaced with p(k)\\
-Let p(k + 1) : $(k + 1)^2 + 2(k + 1) + 1$\\
- = $k^2 + 2k + 1 + 2k + 3$\\
- = $k^2 + 4k + 4$\\
- = $(k + 2)^2$\\
- = $((k + 1) + 1)^2$\\
+Then let p(k + 1) : $1+3+5+7+9+...+2k+1 + 2(k + 1) + 1=((k+1)+1)^2$\\
+We see that $1 + 3 + 5 + 7 + 9 + ...+2k+1$ can be replaced with $(k+1)^2$\\
+Let p(k + 1) : $(k + 1)^2 + 2(k + 1) + 1=((k+1)+1)^2$\\
+$((k+1)+1)^2$ = $k^2 + 2k + 1 + 2k + 3$\\
+$((k+1)+1)^2$ = $k^2 + 4k + 4$\\
+$((k+1)+1)^2$ = $(k + 2)^2$\\
+$((k+1)+1)^2$ = $((k + 1) + 1)^2$\\
  So this holds true for our inductions step. Which means that our conjecture is true. \includegraphics[scale=0.70]{billeder/xzibit}
 
 
