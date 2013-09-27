@@ -43,7 +43,7 @@ Let p(k + 1):\\
 \begin{equation}
  = (k+1)^3
 \end{equation}
-Our conjecture was correct.{\Huge\Bat}
+Our conjecture was correct.\includegraphics[scale=0.70]{billeder/xzibit}
 
 %----------------------------------------------------------------------------------------
 % Problem 2
@@ -69,7 +69,7 @@ The ordered partitions of 5 are as following: \\
    2 + 2 + 1, 2 + 1 + 2, 1 + 2 + 2, 2 + 1 + 1 + 1, 1 + 2 + 1 + 1, 1 + 1 + 2 + 1, 1 + 1 + 1 + 2,
     1 + 1 + 1 + 1 + 1\\
 \textbf{\Large(c)}\\
-We see that 3 has 4 ordered partitions, 4 has 8 ordered partitions and 5 has 16 ordered partitions. This can also be written as $2^2$, $2^3$ and $2^4$. This leads to the conjecture that the number of ordered partitions of an integer $n\geq 2$ is $2^{n-1}$.{\Huge\Bat}
+We see that 3 has 4 ordered partitions, 4 has 8 ordered partitions and 5 has 16 ordered partitions. This can also be written as $2^2$, $2^3$ and $2^4$. This leads to the conjecture that the number of ordered partitions of an integer $n\geq 2$ is $2^{n-1}$.\includegraphics[scale=0.70]{billeder/xzibit}
 
 
 %----------------------------------------------------------------------------------------
@@ -77,10 +77,10 @@ We see that 3 has 4 ordered partitions, 4 has 8 ordered partitions and 5 has 16 
 %----------------------------------------------------------------------------------------
 \section{Express the following quantified statement in symbols:}
 For every odd integer n, the integer 3n+1 is even.\\
-$\forall n\in \mathbb{Z} : n = 2k+1, 3n+1 = 2k$\\
+$\forall n\in \mathbb{Z} : 2\nmid n , 2|3n+1$\\
 \textbf{Part (b)} \\
 Prove that the statement is true.
-$3(2k+1)+1 = 6k +3 +1 = 2(3k+2)$.{\Huge\Bat}
+$3(2k+1)+1 = 6k +3 +1 = 2(3k+2)$.\includegraphics[scale=0.70]{billeder/xzibit}
 
 
 %----------------------------------------------------------------------------------------
@@ -88,21 +88,24 @@ $3(2k+1)+1 = 6k +3 +1 = 2(3k+2)$.{\Huge\Bat}
 %----------------------------------------------------------------------------------------
 \section{Express the following quantified statement in symbols:}
 There exists a positive integer n such that $3n+2^{n-2}$is odd.\\
-$\exists n \in \mathbb{Z} : n = 2k, 3n+2^{n-2} = 2k+1$\\
+$\exists n \in \mathbb{Z} : 2|n, 2\nmid 3n+2^{n-2}$\\
 \textbf{Part (b)} \\
 Prove that the statement is true.
 $3*2k+2^{2k-2} = 6k+4^{k-1} = 6k+4^k*1/4$\\
-$6k+1^k = 6k + 1 = 2(3k) + 1$.{\Huge\Bat}
+$6k+1^k = 6k + 1 = 2(3k) + 1$.\includegraphics[scale=0.70]{billeder/xzibit}
 
 
 %----------------------------------------------------------------------------------------
 % Problem 5
 %----------------------------------------------------------------------------------------
 \section{Prove or disprove: The sum of every five consecutive integers is divisable by 5 and the sum of no six consecutive integers is divisable by 6}
+We start with the sum of every five consectutive integers whether it is divisable by 5:\\
 $(n)+(n+1)+(n+2)+(n+3)+(n+4) = 5n+10 = 5(n+2)$\\
-$(n)+(n+1)+(n+2)+(n+3)+(n+4)+(n+5) = 6n+15$\\
-noget i den stil.{\Huge\Bat}
-{\Huge\Bat}
+So it is true. \includegraphics[scale=0.70]{billeder/xzibit}\\
+We look at the sum of six consecutive integers whether it is divisable by 6:\\
+$(n)+(n+1)+(n+2)+(n+3)+(n+4)+(n+5) = 6(n+2)+3$\\
+This is false. It is disproven. \includegraphics[scale=0.70]{billeder/xzibit}\\
+
 
 %----------------------------------------------------------------------------------------
 % Problem 6
@@ -130,7 +133,7 @@ Let p(k + 1) : $(k + 1)^2 + 2(k + 1) + 1$\\
  = $k^2 + 4k + 4$\\
  = $(k + 2)^2$\\
  = $((k + 1) + 1)^2$\\
- So this holds true for our inductions step. Which means that our conjecture is true. {\Huge\Bat}
+ So this holds true for our inductions step. Which means that our conjecture is true. \includegraphics[scale=0.70]{billeder/xzibit}
 
 
 %----------------------------------------------------------------------------------------
@@ -152,7 +155,7 @@ Let p(k+1):\\
  = $k^3 - k +3k^2 + 3k$\\
  = $3m +3k^2 + 3k$ because $k^3 - k = 3m$ as established by our p(k)\\
  = $3(m +k^2 + k)$\\
- Which is always divisable by 3. So our induction step holds true. {\Huge\Bat}\\
+ Which is always divisable by 3. So our induction step holds true. \includegraphics[scale=0.70]{billeder/xzibit}\\
 \textbf{(b)}\\
 Base Case:\\
 Let n = 1. $1<2^1$ which is true.\\
@@ -162,7 +165,9 @@ Let p(k+1):\\
  = $(k + 1) < 2^{k + 1}$\\
  = $(k + 1) < 2*2^{k}$\\
  = $(k + 1) < 2^{k} + 2^{k}$\\
- = $(k + 1) < k + 2^{k}$ we know that $k < 2^k$ so by substituting we know that we are not getting a bigger value.\\
-  = $ 1 < 2^{k}$.\\
-  Which holds true for all natural values of k.{\Huge\Bat}
+ = $1 <  + 2^{k} - k$
+ = $1 - 2^{k} < 2^{k} - k$.\\
+ = $1 - k < 2^{k} - k$ because $k < 2^k$\\
+ = $1 < 2^{k}$
+  Which holds true for all natural values of k.\includegraphics[scale=0.70]{billeder/xzibit}
 
