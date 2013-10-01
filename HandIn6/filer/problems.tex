@@ -2,172 +2,89 @@
 %----------------------------------------------------------------------------------------
 % Problem 1
 %----------------------------------------------------------------------------------------
-\section{Consider the following statements:}
-$(1+2)^2-1^2=2^3$\\
-$(1+2+3)^2-(1+2)^2=3^3$\\
-$(1+2+3+4)^2-(1+2+3)^2=4^3$\\
-\begin{enumerate}[(a)]
-\item Based on the three statements given above, what is the next statement suggested by these?
-\item What conjecture is suggested by these statements?
-\item Verify the conjecture in (b).
-\end{enumerate}
-\textbf{\Large(a)}\\
-We see that the next statement would be: $(1+2+3+4+5)^2-(1+2+3+4)^2=5^3$.\\
-\textbf{\Large(b)}\\
-The conjecture is $(1+2+3+4+5+...+n)^2-(1+2+3+4+...+n-1)^2=n^3$.\\
-\textbf{\Large(c)}\\
-Base case:\\
-Let n = 2: $(1+2)^2-(1)^2 = 2^3$\\
-$9-1 = 8$ so it is true.\\
-We know from Theorem 6.3 that p(n) can be rewritten as
-\begin{equation}
-\left(\frac{n(n+1)}{2}\right)^2 - \left(\frac{n-1(n)}{2}\right)^2 = n^3
-\end{equation}
-We assume p(k).
-Let p(k + 1):\\
-\begin{equation}
-(k+1)^3 = \left(\frac{(k+1)(k+1+1)}{2}\right)^2 - \left(\frac{(k+1-1)(k+1+1-1)}{2}\right)^2 
-\end{equation}
-\begin{equation}
- = \left(\frac{k^2+3k+2}{2}\right)^2 - \left(\frac{k^2+k}{2}\right)^2 
-\end{equation}
-\begin{equation}
- = \frac{k^4}{4} + \frac{3k^3}{2} + \frac{13k^2}{4} + 3k + 1 - \left(\frac{k^4}{4} + \frac{k^3}{2} + \frac{k^2}{4}\right)
-\end{equation}
-\begin{equation}
- = \frac{2k^3}{2} + \frac{12k^2}{4} + 3k + 1
-\end{equation}
-\begin{equation}
- = k^3 + 3k^2 + 3k + 1
-\end{equation}
-\begin{equation}
- = (k+1)^3
-\end{equation}
-Our conjecture was correct.\includegraphics[scale=0.70]{billeder/xzibit}
+\section{Let A = \{a, b, c, d\}. Give an example (with justification) of a relation R on A that has none of the following properties: reflexive, symmetric, transitive.}
+\includegraphics[scale=0.70]{billeder/xzibit}
 
 %----------------------------------------------------------------------------------------
 % Problem 2
 %----------------------------------------------------------------------------------------
-\section{By an ordered partition of an integer $n\geq 2$ is meant a sequence of positive integers whose sum is n.}
-For example, the ordered partitions of 3 are 3, 1 + 2, 2 + 1, 1 + 1 + 1.
-\begin{enumerate}[(a)]
-\item Determine the ordered partitions of 4.
-\item Determine the ordered partitions of 5.
-\item Make a conjecture concerning the number of ordered partitions of an integer $n\geq 2$
-\end{enumerate}
-\textbf{\Large(a)}\\
-The ordered partitions of 4 are as following: \\
-4,
- 3 + 1, 1 + 3,
-  2 + 2, 2 + 1 + 1, 1 + 2 + 1, 1 + 1 + 2,
-   1 + 1 + 1 + 1\\
-\textbf{\Large(b)}\\
-The ordered partitions of 5 are as following: \\
-5,
- 4 + 1, 1 + 4,
-  3 + 2, 3 + 1 + 1, 2 + 3, 1 + 1 + 3, 1 + 3 + 1
-   2 + 2 + 1, 2 + 1 + 2, 1 + 2 + 2, 2 + 1 + 1 + 1, 1 + 2 + 1 + 1, 1 + 1 + 2 + 1, 1 + 1 + 1 + 2,
-    1 + 1 + 1 + 1 + 1\\
-\textbf{\Large(c)}\\
-We see that 3 has 4 ordered partitions, 4 has 8 ordered partitions and 5 has 16 ordered partitions. This can also be written as $2^2$, $2^3$ and $2^4$. This leads to the conjecture that the number of ordered partitions of an integer $n\geq 2$ is $2^{n-1}$.\includegraphics[scale=0.70]{billeder/xzibit}
+\section{A relation R is defined on $\mathbb{Z}$ by aRb if $|a-b|\leq 2$. Which of the properties reflexive, symmetric and transitive does the relation R possess? Justify your answers.}
+hest.jpg
 
 
 %----------------------------------------------------------------------------------------
 % Problem 3
 %----------------------------------------------------------------------------------------
-\section{Express the following quantified statement in symbols:}
-For every odd integer n, the integer 3n+1 is even.\\
-$\forall n\in \mathbb{Z} : 2\nmid n , 2|3n+1$\\
-\textbf{Part (b)} \\
-Prove that the statement is true.
-$3(2k+1)+1 = 6k +3 +1 = 2(3k+2)$.\includegraphics[scale=0.70]{billeder/xzibit}
+\section{Let A and B be sets with $|A|=|B|=4$.}
+\begin{enumerate}[a.]
+\item Prove or disprove: If R is a relation from A to B where $|R|=9$ and $R = R^{-1}$, then $|A=B|$.
+\item Show that by making a small change in the statement in (a), a different response to the resulting statement can be optained.
+\end{enumerate}
+hest.png
 
 
 %----------------------------------------------------------------------------------------
 % Problem 4
 %----------------------------------------------------------------------------------------
-\section{Express the following quantified statement in symbols:}
-There exists a positive integer n such that $3n+2^{n-2}$is odd.\\
-$\exists n \in \mathbb{Z} : 2|n, 2\nmid 3n+2^{n-2}$\\
-\textbf{Part (b)} \\
-Prove that the statement is true.
-$3*2k+2^{2k-2} = 6k+4^{k-1} = 6k+4^k*1/4$\\
-$6k+1^k = 6k + 1 = 2(3k) + 1$.\includegraphics[scale=0.70]{billeder/xzibit}
+\section{Let R be a relation defined on $\mathbb{Z}$ by aRb if $a^3 = b^3$. Show that R is an equivalence relation on $\mathbb{Z}$ and determine the distinct equivalence classes.}
+hest.gif
 
 
 %----------------------------------------------------------------------------------------
 % Problem 5
 %----------------------------------------------------------------------------------------
-\section{Prove or disprove: The sum of every five consecutive integers is divisable by 5 and the sum of no six consecutive integers is divisable by 6}
-We start with the sum of every five consectutive integers whether it is divisable by 5:\\
-$(n)+(n+1)+(n+2)+(n+3)+(n+4) = 5n+10 = 5(n+2)$\\
-So it is true. \includegraphics[scale=0.70]{billeder/xzibit}\\
-We look at the sum of six consecutive integers whether it is divisable by 6:\\
-$(n)+(n+1)+(n+2)+(n+3)+(n+4)+(n+5) = 6(n+2)+3$\\
-This is false. It is disproven. \includegraphics[scale=0.70]{billeder/xzibit}\\
-
+\section{Let $H = \{2m : m\in \mathbb{Z}\}$. A relation R is defined on the set $\mathbb{Q}^{+}$ of positive rationals by aRb if $a/b\in H$.}
+\begin{enumerate}[a.]
+\item Show that R is an equivalence relation.
+\item Describe the elements in the equivalence class [3].
+\end{enumerate}
+hest.svg\\
+H er basically alle lige numre.
 
 %----------------------------------------------------------------------------------------
 % Problem 6
 %----------------------------------------------------------------------------------------
-\section{Consider the following statements:}
-1 = 1,\\
-1 + 3 = 4,\\
-1 + 3 + 5 = 9,\\
-1 + 3 + 5 + 7 = 16,\\
-1 + 3 + 5 + 7 + 9 = 25.\\
-\begin{enumerate}[(a)]
-\item Based on the three statements given above, what is the next statement suggested by these?
-1 + 3 + 5 + 7 + 9 + 11 = 36.
-\item What conjecture is suggested by these statements?
-$1 + 3 + 5 + 7 + 9 + ... + 2k + 1 = (k + 1)^2$. $\forall k \in \mathbb{Z}^{+}$
-\item Verify the conjecture in (b) using induction.
+\section{Two parts:}
+\begin{enumerate}[a.]
+\item Prove that the intersection if two equivalence relations on a nonempty set is an equivalence relation.
+\item Consider the equivalence relations $R_2$ and $R_3$ defined on $\mathbb{Z}$ by a$R_2$b if $a\equiv b(mod 2)$ and a$R_3$b if $a\equiv b(mod 3)$. By (a), $R_1=R_2\cap R_3$ is an equivalence relation on $\mathbb{Z}$. Determine the destinct equivalence classes in $R_1$.
 \end{enumerate}
-\textbf{Base Case:}\\
-Let k be 0: $2*0 + 1 = 1^2 => 1 = 1$ so this holds True.\\
-We assume p(k)
-$1 + 3 + 5 + 7 + 9 + ... + 2k + 1 = (k + 1)^2$.\\
-We see that $1 + 3 + 5 + 7 + 9 + ...$ can be replaced with p(k)\\
-Let p(k + 1) : $(k + 1)^2 + 2(k + 1) + 1$\\
- = $k^2 + 2k + 1 + 2k + 3$\\
- = $k^2 + 4k + 4$\\
- = $(k + 2)^2$\\
- = $((k + 1) + 1)^2$\\
- So this holds true for our inductions step. Which means that our conjecture is true. \includegraphics[scale=0.70]{billeder/xzibit}
-
+hest.pdf
 
 %----------------------------------------------------------------------------------------
 % Problem 7
 %----------------------------------------------------------------------------------------
-\section{Using induction, prove that}
-\begin{enumerate}[(a)]
-\item $\forall n \in \mathbb{N}, if n\geq 2, then \ n^3-n$ is always divisable by 3
-\item $\forall n \in \mathbb{N},n < 2^n$
+\section{Let A = \{1,2,3\} and B = \{a,b,c,d\}. Give an example of a relation R from A to B containing exactly three elements such that R is not a function from A to B. Explain why R is not a function.}
+hest.m
+
+%----------------------------------------------------------------------------------------
+% Problem 8
+%----------------------------------------------------------------------------------------
+\section{For a function f : A $\leftarrow$ B and subsets C and D of A and E and F of B, prove the following:}
+\begin{enumerate}[a.]
+\item $f(C \cup D) = f(C) \cup f(D)$
+\item $f(C \cap D) \subseteq f(C) \cap f(D)$
+\item $f(C) - f(D) \subseteq f(C-D)$
+\item $f^{-1}(E \cup F) = f^{-1}(E) \cup f^{-1}(F)$
+\item $f^{-1}(E \cap F) = f^{-1}(E) \cap f^{-1}(F)$
+\item $f^{-1}(E - F) = f^{-1}(C) - f^{-1}(D)$
 \end{enumerate}
-\textbf{(a)}\\
-Base Case:\\
-Let n = 2. $2^3 - 2 = 6$ which is divisable by 3.\\
+hest.m
 
-Assume p(k): $k^3-k = 3m$ where m is an arbitrary integer.\\
-Let p(k+1):\\
- = $(k + 1)^3 - (k + 1)$\\
- = $k^3 + 3k^2 + 3k + 1 - k - 1$\\
- = $k^3 - k +3k^2 + 3k$\\
- = $3m +3k^2 + 3k$ because $k^3 - k = 3m$ as established by our p(k)\\
- = $3(m +k^2 + k)$\\
- Which is always divisable by 3. So our induction step holds true. \includegraphics[scale=0.70]{billeder/xzibit}\\
-\textbf{(b)}\\
-Base Case:\\
-Let n = 1. $1<2^1$ which is true.\\
+%----------------------------------------------------------------------------------------
+% Problem 9
+%----------------------------------------------------------------------------------------
+\section{Prove that the function f : R $\leftarrow$ R defined by f(x) = 7x - 2 is bijective.}
+hest.m
 
-Assume p(k): $k < 2^k$\\
-Let p(k+1):\\
- = $(k + 1) < 2^{k + 1}$\\
- = $(k + 1) < 2*2^{k}$\\
- = $(k + 1) < 2^{k} + 2^{k}$\\
- = $1 <  + 2^{k} - k$
- = $1 - 2^{k} < 2^{k} - k$.\\
- = $1 - k < 2^{k} - k$ because $k < 2^k$\\
- = $1 < 2^{k}$
-  Which holds true for all natural values of k.\includegraphics[scale=0.70]{billeder/xzibit}
-
+%----------------------------------------------------------------------------------------
+% Problem 10
+%----------------------------------------------------------------------------------------
+\section{Prove or disprove the following:}
+\begin{enumerate}[a.]
+\item If two functions f : A $\leftarrow$ B and g : B $\leftarrow$ C are both bijective, then g $\circ$ f : A $\leftarrow$ C is bijective.
+\item Let f : A $\leftarrow$ B and g : B $\leftarrow$ C be two functions. If g is onto, then g $\circ$ f : A $\leftarrow$ C is onto.
+\item Let f : A $\leftarrow$ B and g : B $\leftarrow$ C be two fuctions. If g is one-to-one, then g $\circ$ f : A $\leftarrow$ C is one-to-one.
+\item There exist functions f : A $\leftarrow$ B and g : B $\leftarrow$ C such that f is no onto and g $\circ$ f : A $\leftarrow$ C is onto.
+\item There exist functions f : A $\leftarrow$ B and g : B $\leftarrow$ C such that f is no one-to-on and g $\circ$ f : A $\leftarrow$ C is one-to-one.
+\end{enumerate}
