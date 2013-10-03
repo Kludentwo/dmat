@@ -7,7 +7,7 @@ R = {(a,a),(a,b),(b,c)}.\\
 It is not reflexive as it does not contain: (b,b),(c,c),(d,d).\\
 It is not symmetric because it does not contain: (b,a), (c,b).\\
 It is not transitive because it does not contain: (a,c) although it contains the valid steps to get to (a,c).
-
+\newpage
 
 %----------------------------------------------------------------------------------------
 % Problem 2
@@ -33,7 +33,7 @@ We provide a counterexample:\\
 Let a = 0, b = 1, c = 3.
 $aRb = |0-1|=1 \leq 2$ and $bRc = |1-3|=2 \leq 2$ implies $aRc = |0-3|= 3 \leq 2$ which is false.\\
 We can conclude and say that the relation aRb is reflexive and symmetric but not transitive. 
-
+\newpage
 %----------------------------------------------------------------------------------------
 % Problem 3
 %----------------------------------------------------------------------------------------
@@ -43,18 +43,34 @@ We can conclude and say that the relation aRb is reflexive and symmetric but not
 \item Show that by making a small change in the statement in (a), a different response to the resulting statement can be obtained.
 \end{enumerate}
 \textbf{a.}:\\
+We will disporve the statement.\\
 Let A = \{1, 3, 5, 7 \} and B = \{1, 3, 5, 9 \}.  $|A| = 4 = |B|$.\\
 Let R = \{(1,1),(1,3),(1,5),(3,1),(3,3),(3,5),(5,1),(5,3),(5,5)\}. $|R|=9$ and $R^{-1} = R$.\\
 We see that A = B evaluates to be false as the fourth element in each is not equal.\\
 \textbf{b.}:\\
 If we let |R|= 16 $(|A| * |B|)$ and R = $R^{-1}$ it would mean that A and B would have to be equal.
+\newpage
 %----------------------------------------------------------------------------------------
 % Problem 4
 %----------------------------------------------------------------------------------------
 \section{Let R be a relation defined on $\mathbb{Z}$ by aRb if $a^3 = b^3$. Show that R is an equivalence relation on $\mathbb{Z}$ and determine the distinct equivalence classes.}
-hest.gif
+We see if the relation is and equivalence relation by checking the individual relations:\\
+\textbf{Reflexive:}\\
+$aRa: a^3=a^3$\\ 
+Hereby the relation is reflexive.\\
+\textbf{Symmetrics:}\\
+$aRb: a^3=b^3$\\
+$bRa: b^3=b^3$\\
+Hereby the relation is symmetric.\\
+\textbf{Transitiv:}\\
+$aRb: a^3=b^3$\\
+$bRc: b^3=c^3$\\
+$aRc: a^3=c^3$\\
+Hereby the relation is transitiv.\\
+\\
+The distinct equivalence classes are defined as classes or sets of number which are equal/equivalent. We know $a^3=b^3$ only holds if $a=b$. This means that there exists an equivalence class $[a]=\{a\},  \forall a \in \mathbb{Z}$
 
-
+\newpage
 %----------------------------------------------------------------------------------------
 % Problem 5
 %----------------------------------------------------------------------------------------
@@ -65,7 +81,7 @@ hest.gif
 \end{enumerate}
 hest.svg\\
 H er basically alle lige numre.
-
+\newpage
 %----------------------------------------------------------------------------------------
 % Problem 6
 %----------------------------------------------------------------------------------------
@@ -74,18 +90,42 @@ H er basically alle lige numre.
 \item Prove that the intersection if two equivalence relations on a nonempty set is an equivalence relation.
 \item Consider the equivalence relations $R_2$ and $R_3$ defined on $\mathbb{Z}$ by a$R_2$b if $a\equiv b(mod 2)$ and a$R_3$b if $a\equiv b(mod 3)$. By (a), $R_1=R_2\cap R_3$ is an equivalence relation on $\mathbb{Z}$. Determine the destinct equivalence classes in $R_1$.
 \end{enumerate}
-hest.pdf
+\textbf{a:}\\
+Let A be a nonempty set.\\
+Then let two equivalent relations be:\\
+$R_1\subseteq $A$\times$A and $R_2\subseteq $A$\times$A\\
+Here we know $R_3=R_1 \cap R_2$\\
+We check for the reflexive property:\\
+Then let a$\in$A where (a,a)$\in R_1 \cap$ (a,a)$\in R_2$ then (a,a)$\in R_3$ therefore $R_3$ must be reflexive.\\
+Next we check for the symmetric property:\\
+Let a,b$\in$A where (a,b),(b,a)$\in R_1 \cap$ (a,b),(b,a)$\in R_2$ then (a,b),(b,a)$\in R_3$ therefore $R_3$ must be symmetric.\\
+Last we check for the transitive property:\\
+Let a,b,c$\in$A where (a,b),(b,c),(a,c) $\in R_1 \cap$ (a,b),(b,c),(a,c)$\in R_2$ then (a,b),(b,c),(a,c) $\in R_3$ therefore $R_3$ must be transitive.\\
+\textbf{b:}\\
+We know the relation $R_2$ can be written as $2|(a-b)$ and the relation $R_3$ can be written as $3|(a-b)$. The relation $R_2$ is all even numbers which can be written as $2x$ where $x=(a-b)$. The relation $R_3$ is for all a and b of the form (a-b) is divisible by 3 which is equivalent to $3x$ where x is (a-b). The relation of the intersection of $R_2$ and $R_3$ must then be $3(2x)=6x\equiv a=b(mod(6))$ where $x=(a-b)$. So the intersection is all numbers which are divisible by 6.
+When we have mod(6) we can have 6 possible outcomes of remainder, namely: 0,1,2,3,4,5. This can be written as 6 possible equivalence classes which will always give us the same outcome:
+\begin{center}
+$[0]=\{\forall x\in \mathbb{Z}:6x\}$ - This will always give 0 in remainder.\\
+$[1]=\{\forall x\in \mathbb{Z}:6x+1\}$ - This will always give 1 in remainder.\\
+$[2]=\{\forall x\in \mathbb{Z}:6x+2\}$ - This will always give 2 in remainder.\\
+$[3]=\{\forall x\in \mathbb{Z}:6x+3\}$ - This will always give 3 in remainder.\\
+$[4]=\{\forall x\in \mathbb{Z}:6x+4\}$ - This will always give 4 in remainder.\\
+$[5]=\{\forall x\in \mathbb{Z}:6x+5\}$ - This will always give 5 in remainder.\\
+\end{center}
 
+\newpage
 %----------------------------------------------------------------------------------------
 % Problem 7
 %----------------------------------------------------------------------------------------
 \section{Let A = \{1,2,3\} and B = \{a,b,c,d\}. Give an example of a relation R from A to B containing exactly three elements such that R is not a function from A to B. Explain why R is not a function.}
-hest.m
-
+For a relation to be a function it must only have one output per input (it must not split).\\
+Therefore a relation which is not a function could be:\\
+$R={(1,a),(1,b),(1,c)}$\\
+\newpage
 %----------------------------------------------------------------------------------------
 % Problem 8
 %----------------------------------------------------------------------------------------
-\section{For a function f : A $\leftarrow$ B and subsets C and D of A and E and F of B, prove the following:}
+\section{For a function f : A $\rightarrow$ B and subsets C and D of A and E and F of B, prove the following:}
 \begin{enumerate}[a.]
 \item $f(C \cup D) = f(C) \cup f(D)$
 \item $f(C \cap D) \subseteq f(C) \cap f(D)$
@@ -94,23 +134,32 @@ hest.m
 \item $f^{-1}(E \cap F) = f^{-1}(E) \cap f^{-1}(F)$
 \item $f^{-1}(E - F) = f^{-1}(C) - f^{-1}(D)$
 \end{enumerate}
-hest.m
-
+\begin{enumerate}[a.]
+\item 
+\end{enumerate}
+\newpage
 %----------------------------------------------------------------------------------------
 % Problem 9
 %----------------------------------------------------------------------------------------
-\section{Prove that the function f : R $\leftarrow$ R defined by f(x) = 7x - 2 is bijective.}
-hest.m
-
+\section{Prove that the function f : R $\rightarrow$ R defined by f(x) = 7x - 2 is bijective.}
+For a function to be bijective it needs to be both "onto" and "one-to-one".\\
+First we will show that the function is "one-to-one":\\
+We will check that only one unique input gives one unique output. Assume two arbitrary number a and b. Then $f(a)=f(b)$ we insert a and b to the functions\\
+$7a-2=7b-2$ add 2 to each side and divide by 7\\
+$a=b$ Then a must be equal to b and we have that the function must be one to one.
+We will see if it is "onto":\\
+For a function to be "onto" we need to prove that for every interger y there is and integer x such that f(x)=y. Assume $x=\frac{y+2}{7}$ then $7(\frac{y+2}{7})-2=y$.\\
+Therefore the function must be bijective.
+\newpage
 %----------------------------------------------------------------------------------------
 % Problem 10
 %----------------------------------------------------------------------------------------
 \section{Prove or disprove the following:}
 \begin{enumerate}[a.]
-\item If two functions f : A $\leftarrow$ B and g : B $\leftarrow$ C are both bijective, then g $\circ$ f : A $\leftarrow$ C is bijective.
-\item Let f : A $\leftarrow$ B and g : B $\leftarrow$ C be two functions. If g is onto, then g $\circ$ f : A $\leftarrow$ C is onto.
-\item Let f : A $\leftarrow$ B and g : B $\leftarrow$ C be two fuctions. If g is one-to-one, then g $\circ$ f : A $\leftarrow$ C is one-to-one.
-\item There exist functions f : A $\leftarrow$ B and g : B $\leftarrow$ C such that f is no onto and g $\circ$ f : A $\leftarrow$ C is onto.
-\item There exist functions f : A $\leftarrow$ B and g : B $\leftarrow$ C such that f is no one-to-on and g $\circ$ f : A $\leftarrow$ C is one-to-one.
+\item If two functions f : A $\rightarrow$ B and g : B $\rightarrow$ C are both bijective, then g $\circ$ f : A $\rightarrow$ C is bijective.
+\item Let f : A $\rightarrow$ B and g : B $\rightarrow$ C be two functions. If g is onto, then g $\circ$ f : A $\rightarrow$ C is onto.
+\item Let f : A $\rightarrow$ B and g : B $\rightarrow$ C be two fuctions. If g is one-to-one, then g $\circ$ f : A $\rightarrow$ C is one-to-one.
+\item There exist functions f : A $\rightarrow$ B and g : B $\rightarrow$ C such that f is no onto and g $\circ$ f : A $\rightarrow$ C is onto.
+\item There exist functions f : A $\rightarrow$ B and g : B $\rightarrow$ C such that f is no one-to-on and g $\circ$ f : A $\rightarrow$ C is one-to-one.
 \end{enumerate}
 \includegraphics[scale=0.70]{billeder/xzibit}
