@@ -46,9 +46,9 @@ We can conclude and say that the relation aRb is reflexive and symmetric but not
 We will disporve the statement.\\
 Let A = \{1, 3, 5, 7 \} and B = \{1, 3, 5, 9 \}.  $|A| = 4 = |B|$.\\
 Let R = \{(1,1),(1,3),(1,5),(3,1),(3,3),(3,5),(5,1),(5,3),(5,5)\}. $|R|=9$ and $R^{-1} = R$.\\
-We see that A = B evaluates to be false as the fourth element in each is not equal.\\
+We see that A = B evaluates to be false as the fourth element in each is not equal.\includegraphics[scale=0.70]{billeder/xzibit}\\
 \textbf{b.}:\\
-If we let |R|= 16 $(|A| * |B|)$ and R = $R^{-1}$ it would mean that A and B would have to be equal.
+If we let |R|= 10 and R = $R^{-1}$. We add $(7,7)$ to the relation. This means that A = \{1, 3, 5, 7\} and B = \{1, 3, 5, 7\}. Now A = B which is a different response as it is true.
 \newpage
 %----------------------------------------------------------------------------------------
 % Problem 4
@@ -113,7 +113,7 @@ Then let a$\in$A where (a,a)$\in R_1 \cap$ (a,a)$\in R_2$ then (a,a)$\in R_3$ th
 Next we check for the symmetric property:\\
 Let a,b$\in$A where (a,b),(b,a)$\in R_1 \cap$ (a,b),(b,a)$\in R_2$ then (a,b),(b,a)$\in R_3$ therefore $R_3$ must be symmetric.\\
 Last we check for the transitive property:\\
-Let a,b,c$\in$A where (a,b),(b,c),(a,c) $\in R_1 \cap$ (a,b),(b,c),(a,c)$\in R_2$ then (a,b),(b,c),(a,c) $\in R_3$ therefore $R_3$ must be transitive.\\
+Let a,b,c$\in$A where (a,b),(b,c),(a,c) $\in R_1 \cap$ (a,b),(b,c),(a,c)$\in R_2$ then (a,b),(b,c),(a,c) $\in R_3$ therefore $R_3$ must be transitive.\includegraphics[scale=0.70]{billeder/xzibit}\\
 \textbf{b:}\\
 We know the relation $R_2$ can be written as $2|(a-b)$ and the relation $R_3$ can be written as $3|(a-b)$. The relation $R_2$ is all even numbers which can be written as $2x$ where $x=(a-b)$. The relation $R_3$ is for all a and b of the form (a-b) is divisible by 3 which is equivalent to $3x$ where x is (a-b). The relation of the intersection of $R_2$ and $R_3$ must then be $3(2x)=6x\equiv a=b(mod(6))$ where $x=(a-b)$. So the intersection is all numbers which are divisible by 6.
 When we have mod(6) we can have 6 possible outcomes of remainder, namely: 0,1,2,3,4,5. This can be written as 6 possible equivalence classes which will always give us the same outcome:
@@ -147,13 +147,19 @@ $R={(1,a),(1,b),(1,c)}$\\
 \item $f^{-1}(E \cap F) = f^{-1}(E) \cap f^{-1}(F)$
 \item $f^{-1}(E - F) = f^{-1}(C) - f^{-1}(D)$
 \end{enumerate}
-\textbf{a.} So a function gives us some y for some x. The x is in the set consisting of the union of C and D so on the left side we get some y from the function. On the right side either C og D contains said x so we also get that y in the union of the two functions.\\
-\textbf{b.} The same as a. applies. We know that for some x we get a y. And this x must be in both C and D. On the other side both function gives this y for the x. And since both sets in the function returns y it must be in the intersection. Since it is subset or equal we can show it the other way around to actually show that it is equals. So in the intersection of f(C) and f(D) is a y. And since a function cannot return 2 outputs to one input both sets must contain the x which gives us the y. And since x is in both set it will be in the intersection and the function will return y.\\
-So: $x\in C \ or\ x \in D$ f(x)=y and $y\in f(C)\ or\ f(D)$
+For a., b. and c. x is in A and y is in B. For d., e. and f. x is in B and y is in A.\\
+\textbf{a.}\\ So a function gives us some y for some x. The x is in the set consisting of the union of C and D so on the left side we get some y from the function. On the right side either C og D contains said x so we also get that y in the union of the two functions.\\
+\textbf{b.}\\ The same as a. applies. We know that for some x we get a y. And this x must be in both C and D. On the other side both function gives this y for the x. And since both sets in the function returns y it must be in the intersection. Since it is subset or equal we can show it the other way around to actually show that it is equals. So in the intersection of f(C) and f(D) is a y. And since a function cannot return 2 outputs to one input both sets must contain the x which gives us the y. And since x is in both set it will be in the intersection and the function will return y.\\
+So: $x\in C \ or\ x \in D$ f(x)=y and $y\in f(C)\ or\ f(D)$\\
 \textbf{c.}\\
 Let f(C) - f(D) equal some y. Let (C-D) = x then f(x) = y. This means that f(C) - f(D) is a subset or equal to f(C-D).\\
 \textbf{d.}\\
-
+So a function gives us some y for some x. The x is in the set consisting of the union of E and F so on the left side we get some y from the function. On the right side either E og F contains said x so we also get that y in the union of the two functions.\\
+\textbf{e.}\\
+The same as e. applies. We know that for some x we get y. And this x must be in both E and F. On the other side both function gives this y for the x. And since both sets in the function returns y it must be in the intersection. Since it is subset or equal we can show it the other way around to actually show that it is equals. So in the intersection of f(E) and f(F) is a y. And since a function cannot return 2 outputs to one input both sets must contain the x which gives us the y. And since y is in both set it will be in the intersection and the function will return y.\\
+So: $x\in E \ or\ x \in F$ f(x)=y and $y\in f(E)\ or\ f(F)$\\
+\textbf{f.}\\
+Let (E-F) = x. $f^{-1}(x) = y$. We let $f^{-1}(E) - f^{-1}(F) = y$. This means that $f^{-1}(E-F) = f^{-1}(E) - f^{-1}(F)$.\\
 \newpage
 %----------------------------------------------------------------------------------------
 % Problem 9
@@ -166,7 +172,7 @@ $7a-2=7b-2$ add 2 to each side and divide by 7\\
 $a=b$ Then a must be equal to b and we have that the function must be one to one.
 We will see if it is "onto":\\
 For a function to be "onto" we need to prove that for every interger y there is and integer x such that f(x)=y. Assume $x=\frac{y+2}{7}$ then $7(\frac{y+2}{7})-2=y$.\\
-Therefore the function must be bijective.
+Therefore the function must be bijective.\includegraphics[scale=0.70]{billeder/xzibit}
 \newpage
 %----------------------------------------------------------------------------------------
 % Problem 10
@@ -205,5 +211,5 @@ Let A = \{1, 3\}, B = \{a, b, c\}, and C = \{x, y\}.\\
 let f : A $\rightarrow$ B be defined as f = \{(1,a),(2,b)\} then it is not onto as it does not contain "c". Let g : B $\rightarrow$ C be defined as g = \{(a,x),(b,y),(c,y)\} then g $\circ$ f = \{(1,x),(2,y)\} which is onto.  \includegraphics[scale=0.70]{billeder/xzibit}\\
 
 \textbf{e.}\\
-We know that f is not one-to-one so there exists $a,b \in A$ with a and b being distinct values and $f(a) = f(b)$ therefore g $\circ$ f(a) = g(f(a)) = g(f(b)) = g $\circ$ f(b). This disproves that g $\circ$ f is one-to-one. \includegraphics[scale=0.70]{billeder/xzibit}\\
+We know that f is not one-to-one so there exists $a,b \in A$ with a and b being distinct values and $f(a) = f(b)$ therefore g $\circ$ f(a) = g(f(a)) = g(f(b)) = g $\circ$ f(b). This disproves that g $\circ$ f is one-to-one.\\
 
