@@ -56,17 +56,17 @@ If we let |R|= 16 $(|A| * |B|)$ and R = $R^{-1}$ it would mean that A and B woul
 \section{Let R be a relation defined on $\mathbb{Z}$ by aRb if $a^3 = b^3$. Show that R is an equivalence relation on $\mathbb{Z}$ and determine the distinct equivalence classes.}
 We see if the relation is and equivalence relation by checking the individual relations:\\
 \textbf{Reflexive:}\\
-$aRa: a^3=a^3$\\ 
+$aRa: a^3=a^3$, which is true\\ 
 Hereby the relation is reflexive.\\
 \textbf{Symmetrics:}\\
-$aRb: a^3=b^3$\\
-$bRa: b^3=b^3$\\
-Hereby the relation is symmetric.\\
+If$aRb: a^3=b^3$\\
+then $bRa: b^3=b^3$\\
+and hereby the relation is symmetric.\\
 \textbf{Transitive:}\\
-$aRb: a^3=b^3$\\
-$bRc: b^3=c^3$\\
-$aRc: a^3=c^3$\\
-Hereby the relation is transitive.\\
+If $aRb: a^3=b^3$\\
+and $bRc: b^3=c^3$\\
+then $aRc: a^3=c^3$\\
+and hereby the relation is transitive.\\
 \\
 The distinct equivalence classes are defined as classes or sets of number which are equal/equivalent. We know $a^3=b^3$ only holds if $a=b$. This means that there exists an equivalence class $[a]=\{a\},  \forall a \in \mathbb{Z}$
 
@@ -80,10 +80,17 @@ The distinct equivalence classes are defined as classes or sets of number which 
 \item Describe the elements in the equivalence class [3].
 \end{enumerate}
 To show that R is an equivalence relation we will show that the relation is reflexive, symmetric and transitive.\\
-Before showing the different properties note that $\frac{2^a}{2^b}$ can be written as $2^{a-b}$.\\
+
 \textbf{Reflexive:}\\
-$aRa: 2^{a-a}=2^0=1$ which is in H thereby the relation is reflexive.\\
-\textbf{}
+$aRa: \frac{a}{a}=1$ which is in H thereby the relation is reflexive.\\
+\textbf{Symmetric:}\\
+$aRb: \frac{a}{b}$ where the relation is in H: $\frac{a}{b}=2^m$
+$bRa: \frac{b}{a}$ here the relations is also in H: $\left(\frac{a}{b}\right)^{-1}=\left(2^m\right)$ which is equal to $\frac{b}{a}=2^{-m}$\\
+Hereby the relation is symmetric.\\
+\textbf{Transitive:}\\
+
+Therefore the relation is also transitive.\\
+
 \newpage
 %----------------------------------------------------------------------------------------
 % Problem 6
