@@ -168,8 +168,26 @@ Therefore the function must be bijective.
 \begin{enumerate}[a.]
 \item If two functions f : A $\rightarrow$ B and g : B $\rightarrow$ C are both bijective, then g $\circ$ f : A $\rightarrow$ C is bijective.
 \item Let f : A $\rightarrow$ B and g : B $\rightarrow$ C be two functions. If g is onto, then g $\circ$ f : A $\rightarrow$ C is onto.
-\item Let f : A $\rightarrow$ B and g : B $\rightarrow$ C be two fuctions. If g is one-to-one, then g $\circ$ f : A $\rightarrow$ C is one-to-one.
+\item Let f : A $\rightarrow$ B and g : B $\rightarrow$ C be two functions. If g is one-to-one, then g $\circ$ f : A $\rightarrow$ C is one-to-one.
 \item There exist functions f : A $\rightarrow$ B and g : B $\rightarrow$ C such that f is no onto and g $\circ$ f : A $\rightarrow$ C is onto.
 \item There exist functions f : A $\rightarrow$ B and g : B $\rightarrow$ C such that f is no one-to-on and g $\circ$ f : A $\rightarrow$ C is one-to-one.
 \end{enumerate}
-\includegraphics[scale=0.70]{billeder/xzibit}
+\textbf{a.}\\
+We start by checking for injection(one-to-one):\\
+g $\circ$ f(x) = g $\circ$ f(y)\\
+g(f(x)) = g(f(y))\\
+Since g is injective(bijective).\\
+f(x) = f(y)\\
+and since f is injective(bijective).\\
+x = y\\
+Next up we check for surjection(onto):\\
+Since we know that both g and f are surjective(onto):\\
+Let $c \in C$. Since g is onto, there is an element $b \in B$ so that g(b) = c. Since f is onto, there is an element $a \in A$ so that f(a) = b. then:\\
+\begin{equation}
+g \circ f(a) = g(f(a)) = g(b) = c
+\end{equation}
+Since we started with an arbitrary element $c \in C$ and we found an element $a \in C$ which maps onto it, we have shown $g \circ f$ is surjective. \includegraphics[scale=0.70]{billeder/xzibit}\\
+\textbf{b.}\\
+f er ikke noedvendigvis onto saa derfor er den false(skriv det fancy)
+
+
