@@ -7,14 +7,25 @@ I/O\\
 ADC/DMA\\
 Memory\\
 \subsection{Blackfin}
-Speed\\
-I/O\\
-ADC \& Audiocodec\\
-Memory\\
+\textbf{Speed:}\\
+The blackfin processor runs at 600MHz. For every clock it can do two operations (multiplication and/or addition). This effectively means that we can do 1200 million operations per second, if we use the processor 100\% of the time.\\
+\textbf{I/O}\\
+\fxnote{Jeg skal skrives}\\
+\textbf{ADC \& Audiocodec:}\\
+\fxnote{Jeg skal skrives}\\
+\textbf{Memory:}\\
+Since we do not use much memory we use the L1 cache in the BF533. It is according to the datasheet 32Kbytes big. Since we work with the datatype "short", which is 16 bits, we have enough space for 16K samples.\\
+\begin{figure}[hbpt]
+\centering
+\includegraphics[width=0.5\textwidth]{billeder/memorytable}
+\caption[Screen dump from datasheet]{Screen dump from datasheet\footnotemark}
+\label{img:mem_table}
+\end{figure}
+\footnotetext{\url{http://www.analog.com/static/imported-files/data_sheets/ADSP-BF531_BF532_BF533.pdf}}
 \subsection{DK8K}
 NOPE!\\
 \section{Fixed-/FloatingPoint}
-hest\
+\fxnote{Jeg skal skrives}
 \section{Technology}
 \subsection{Ultrasound}
 The first method we discussed was ultrasound. But if we were to choose ultrasound we wouldnt have much data processing since we would just have a transmitter/reciever circuit which has an electrical interface. And wo wouldnt learn much about implementing digital signal processing. Peter also 
@@ -27,5 +38,7 @@ We went along with hearable sound by suggestion from Peter. Hearable sound is ea
 
 \section{Equipment}
 \subsection{I/O}
+
 \subsection{Ultrasonic sensor}
+We had an ultrasonic sensor of the brand "Ping)))". This didnt really conflict with the concern about using ultrasound since it had a simple electrical interface, but it was not much about digital signal processing but more about timing so we didn't feel it was a good way to go.
 \subsection{Speaker/Mic}

@@ -63,13 +63,15 @@
 \setlength{\parindent}{0mm}           		% Stoerrelse af indryk
 \setlength{\parskip}{3mm}          			% Afstand mellem afsnit ved brug af double Enter
 \linespread{1,1}							% Linie afstand
-
+\setsecnumdepth{subsubsection}
+\usepackage{hyperref}
 % ¤¤ Lister ¤¤ %
 \setlist{
   topsep=0pt,								% Vertikal afstand mellem tekst og listen
   itemsep=-1ex,								% Vertikal afstand mellem items
 } 
-
+%    FIXME!!!   %
+\usepackage[footnote,draft]{fixme}
   
 \makeevenfoot{plain}{}{Page \thepage\ of \pageref{LastPage}}{}
 \makeoddfoot{plain}{}{Page \thepage\ of \pageref{LastPage}}{}
