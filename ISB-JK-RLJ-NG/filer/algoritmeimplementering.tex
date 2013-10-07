@@ -6,6 +6,23 @@ Xcorr\\
 \subsection{Output}
 Sound and Interpolation\\
 UART\\
+\section{Blackfin Setup}
+\subsection{DMA}
+The DMA is setup using SPI on the blackfin. We have used code from the example project "Audio Talk-Through" Which initiates the dma channels 1, 2 and 5 for input, output and moving data to the built in audio codec. The DMA has the following init parts:
+\begin{verbatim}
+*pDMA1_PERIPHERAL_MAP // What to map the DMA to.
+*pDMA1_CONFIG // which configuration your want.
+*pDMA1_START_ADDR // Start address of the buffer.
+*pDMA1_X_COUNT // Number of transfers
+*pDMA1_X_MODIFY // Number of bytes between each transfer
+\end{verbatim}
+In our setup we are using 32 bytes so the DMA in- and output are set to 32 bytes, 8 bursts of 4 bytes at a time. We map the in and output dma channels to Sport0 Rx and Tx. Sport0 is connected to our physical ports described below. The last thing we have to do is enable the DMA channels and that is done with the \begin{quote}
+"DMAEN"
+\end{quote}  flag in the 
+\begin{quote}
+"pDMA1\_CONFIG"
+\end{quote}
+.\\
 \section{Important code descriptions}
 Input/output ISR\\
 Main.c\\
