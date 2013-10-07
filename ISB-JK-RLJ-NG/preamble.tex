@@ -18,6 +18,15 @@
     {\thechapter}% Chapter number
     {1em}% space between # and title
     {}% formatting applied just to title
+\usepackage{color}
+\definecolor{codegreen}{rgb}{0.1,0.5,0.1}
+\usepackage{listings}
+\lstset{language=C,
+                basicstyle=\ttfamily,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{codegreen}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}}
 																			
 % ¤¤ Figurer og tabeller (floats) ¤¤ %
 \usepackage{graphicx} 						% Haandtering af eksterne billeder (JPG, PNG, EPS, PDF)
@@ -72,6 +81,7 @@
 } 
 %    FIXME!!!   %
 \usepackage[footnote,draft]{fixme}
+
   
 \makeevenfoot{plain}{}{Page \thepage\ of \pageref{LastPage}}{}
 \makeoddfoot{plain}{}{Page \thepage\ of \pageref{LastPage}}{}

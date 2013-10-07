@@ -25,5 +25,20 @@ Regarding resources on the blackfin we are looking to try to make our own implem
 We also want to investigate the use of DMA on the blackfin so we do not waste resources on moving data only processing it.
 \section{VisualDSP++}
 \subsection{Plot}
-VisualDSP++ has a built-in function to plot data from the memory of the blackfin. This feature can be used when the blackfin has been flashed and then subsequently halted. 
+VisualDSP++ has a built-in function to plot data from the memory of the blackfin. This feature can be used when the blackfin has been flashed and then subsequently halted. To access this feature go into:
+\begin{verbatim}
+View -> Debug Windows -> Plot -> New
+\end{verbatim}
+Set name, length and type of the data you want to plot and press \"Add\". This way you can have multiple plots on the same graph. It is also possible to have multiple plots and to save the setting of your plot. An example of plot can be seen on figure~\ref{fig:visualdspplot}.
+\begin{figure}[hbpt]
+\centering
+\includegraphics[scale=0.5]{billeder/visualdspplot}
+\caption{Plot in VisualDSP++}
+\label{fig:visualdspplot}
+\end{figure}
 \subsection{Memory dump}
+A useful feature in VisualDSP++ is Memory dump. We can save the contents of arrays and variables directly onto the computer running VisualDSP++ in ".dat" format. To access this feature go into:
+\begin{verbatim}
+Memory -> Dump
+\end{verbatim}
+Set filename, type, size and variable/array name. Matlab can import these files directly.

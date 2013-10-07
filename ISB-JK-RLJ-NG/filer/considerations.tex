@@ -12,7 +12,7 @@ The blackfin processor runs at 600MHz. For every clock it can do two operations 
 \textbf{I/O}\\
 \fxnote{Jeg skal skrives}\\
 \textbf{ADC \& Audiocodec:}\\
-\fxnote{Jeg skal skrives}\\
+The blackfin has a built-in audiocodec consisting of 4 ADCs and 6 DACs with a resolution of 24 bits. It has a signal to noise ratio of 105dB\footnote{http://www.analog.com/en/audiovideo-products/audio-codecs/ad1836/products/product.html}. There is an example project in the VisualDSP++ environment explaining how to utilize this codec.\\
 \textbf{Memory:}\\
 Since we do not use much memory we use the L1 cache in the BF533. It is according to the datasheet 32Kbytes big. Since we work with the datatype "short", which is 16 bits, we have enough space for 16K samples.\\
 \begin{figure}[hbpt]
@@ -23,7 +23,7 @@ Since we do not use much memory we use the L1 cache in the BF533. It is accordin
 \end{figure}
 \footnotetext{\url{http://www.analog.com/static/imported-files/data_sheets/ADSP-BF531_BF532_BF533.pdf}}
 \subsection{DK8K}
-NOPE!\\
+We chose to ignore the DK8K platform as it does not have an Interactive Developer Environment(IDE). This would put a bigger workload on us but would not help us understand how to take advantage of Digital signal processing on embedded units.
 \section{Fixed-/FloatingPoint}
 \fxnote{Jeg skal skrives}
 \section{Technology}
