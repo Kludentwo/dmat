@@ -25,13 +25,28 @@ Below is the plot of the cross-correlation. It shows clearly where the to signal
 \textbf{Sinusoid}:\\
 \textbf{Noise}:\\
 \subsection{Output}
-UART\\
-Sound\\
+\textbf{UART}:\\
+VisualDSP++ comes with an example project for UART. We tried running the example project but we had no luck. We could not get the example project to work. We searched the internet for other example projects but still, we could not get them to work. \\
+\textbf{Sound}:\\
+The original scope of our project was to have an audio source as our output, while using a sound to measure distance. This worked well since we already had the knowledge from the talkthrough on how to output sound.\\
+We have a multitude of ways to create the sound we are playing. We could either create a sound in matlab and load it or we could create it directly on the blackfin. For testing purposes we chose the matlab solution. This would mean that once we have made the soundbits we wanted to use, we would have to convert them to a format known by the blackfin.
 \section{Convert to BF}
+The blackfin has a small "hack" when it comes to loading sound from memory:
+\begin{lstlisting}[language=C]
+short sound_buffer[length_of_signal] = { 
+#include "signal_you_want_to_use.hex"
+};
+\end{lstlisting}
+This means we have to convert our sound array to a hex format. The first thing we do when converting is reducing the amplitude of the signal to make sure it fits in a "c style short" datatype. Then we use a function "mydec2hex" which is an improved version of matlabs built-in function "dec2hex". After converting to hex-format we use the file descriptor to save the data into a hex file. The hex file is put in the project folder in VisualDSP++ and the codehack is put where you initialize your variables.
+
 \section{Blackfin}
 \textbf{Memory}:\\
+The blackfin has 2 types of memory: Internal and external. The internal SRAM consist of fast memory that is close to the processor.  As previously mentioned the L1 Data SRAM size is 32K Bytes. If we were to chose large arrays for our sound array we could enable the external SDRAM as well. This would provide us with a grand total of 132M bytes of memory. The SRAM is based on Harvard Architecture which makes it as fast as the processor. The SDRAM runs slower than the SRAM, so it would be ideal to confine the project to SRAM only. Enabling the SDRAM is done in VisualDSP++ by entering Project Options. The path would then be:
+\begin{verbatim}
+Project -> Link -> Processor (1) -> Memory Usage
+\end{verbatim}
 \textbf{DMA}:\\
-The is a controller circuit on embedded units that can initiate memory read or write cycles. Before the DMA controller can be used we have to initiate it. This is largely platform specific and the way we do it on the blackfin will be described in the algorith implementation chapter. The DMA controller on the blackfin can move data between L1 Cache, Flash or SDRAM and units connected to the DMA Access Bus. The Scope of our project means that we have to use Sport0 (which will be connected to the audio connectors) and internal memory from the L1. 
+The is a controller circuit on embedded units that can initiate memory read or write cycles. Before the DMA controller can be used we have to initiate it. This is largely platform specific and the way we do it on the blackfin will be described in the algorith implementation chapter. The DMA controller on the blackfin can move data between L1 Cache, Flash or SDRAM and units connected to the DMA Access Bus. The Scope of our project means that we have to use Sport0 (which will be connected to the audio connectors) and internal memory from the L1. \\
 \textbf{Input}:\\
 \textbf{Output}:\\
 \textbf{Resources}:\\
