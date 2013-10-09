@@ -4,12 +4,26 @@
 \subsubsection{Theory}
 \subsubsection{Test Matlab}
 Before we went any further with the project we investigated which kind of signals which was good to send. We did that by generating a signal, made a delay and then cross-correlated these two signals.
-We tried three different signal\\
+We tried three different signals\\
 \textbf{Chirp}:\\
 We started with a chirp. We did that because of gut feeling. We thought this would be the best signal to send mostly because it was controlled and not random, and the signal changed characteristic over time.\\
-
-\textbf{Noise}:\\
+Below is shown the code we used to generate the signal, make the delay and do the cross-correlation:
+\begin{lstlisting}[language=Matlab,frame=lrtb,label=Matlab Code for Chirp Cross-correlation]
+Fs=48000;                                       % Sample frequency
+t = [0:1/Fs:2000/Fs];                           % Timeinterval and length
+Frq1=14000;                                     % Start frequency for chirp
+Frq2=14100;                                     % End frequency for chirp
+delay = 2000;                                   % Signal Delay
+Chirp_signal=chirp(t,Frq1,1,Frq2);              % Chirp signal generation
+Chirp_delayed=[zeros(1,delay),Chirp_signal];    % Chip delay generation
+Chirp_xcorr=xcorr(Chirp_signal,Chirp_delayed);  % Cross-correlation
+LengthChirp_xcorr=length(Chirp_xcorr)           % Calculate length of Xcorr
+[XmaxChirp_xcorr,YmaxChirp_xcorr]=max(Chirp_xcorr) % Find maximum value
+Delay_calcX1X2=((LengthChirp_xcorr+1)/2)-YmaxChirp_xcorr % Calculate Delay
+\end{lstlisting}
+Below is the plot of the cross-correlation. It shows clearly where the to signal overlap.
 \textbf{Sinusoid}:\\
+\textbf{Noise}:\\
 \subsection{Output}
 UART\\
 Sound\\

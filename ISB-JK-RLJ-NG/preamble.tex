@@ -11,6 +11,7 @@
 \usepackage[bf, small, raggedright, compact]{titlesec}
 \usepackage{lastpage}
 
+
 \titlespacing*{\chapter}{0pt}{0pt}{20pt}
 \titleformat{\chapter}% reformat chapter headings
     [hang]% like section, with number on same line
@@ -27,7 +28,19 @@
                 stringstyle=\color{red}\ttfamily,
                 commentstyle=\color{codegreen}\ttfamily,
                 morecomment=[l][\color{magenta}]{\#}}
-																			
+\lstset{language=Matlab,
+				basicstyle=\footnotesize }
+%\tiny 
+%\scriptsize 
+%\footnotesize 
+%\small 
+%\normalsize 
+%\large 
+%\Large 
+%\LARGE 
+%\huge 
+%\Huge 
+													
 % ¤¤ Figurer og tabeller (floats) ¤¤ %
 \usepackage{graphicx} 						% Haandtering af eksterne billeder (JPG, PNG, EPS, PDF)
 %\usepackage{eso-pic}						% Tilfoej billedekommandoer paa hver side

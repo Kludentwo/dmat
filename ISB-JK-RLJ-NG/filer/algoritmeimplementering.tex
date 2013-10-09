@@ -9,7 +9,7 @@ UART\\
 \section{Blackfin Setup}
 \subsection{DMA}
 The DMA is setup using SPI on the blackfin. We have used code from the example project "Audio Talk-Through" Which initiates the dma channels 1, 2 and 5 for input, output and moving data to the built in audio codec. The DMA has the following init parts:
-\begin{lstlisting}
+\begin{lstlisting}[language=C]
 *pDMA1_PERIPHERAL_MAP // What to map the DMA to.
 *pDMA1_CONFIG // which configuration your want.
 *pDMA1_START_ADDR // Start address of the buffer.
@@ -26,7 +26,7 @@ In our setup we are using 32 bytes so the DMA in- and output are set to 32 bytes
 \section{Important code descriptions}
 Input/output ISR\\
 \textbf{Main.c}:\\
-\begin{lstlisting}
+\begin{lstlisting}[language=C]
 // Calculation of Delay
 for(myCount = 0; myCount < SAMPLES; myCount++)
 {
@@ -62,7 +62,7 @@ recFlag = 1;
 
 
 \textbf{Processdata.c}:\\
-\begin{lstlisting}
+\begin{lstlisting}[language=C]
 // playing sound part
 if(num1>OUTPUTLEN){
 	playFlag = 0;
