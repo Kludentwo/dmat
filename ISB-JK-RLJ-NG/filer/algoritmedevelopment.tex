@@ -2,6 +2,71 @@
 \section{Considerations}
 \subsection{Xcorr}
 \subsubsection{Theory}
+Cross-correlation is a method used for comparing two signals. This can for example be with the purpose of finding specific features, patterns or identical signals.
+
+
+\begin{equation}
+\label{eq:xcross}
+\centering
+(f\star g)(t)=\sum\limits_{m=-\infty}^{m=\infty}f(t)*g(t+m)
+\end{equation}
+The equation in \ref{eq:xcross} is the mathematical expression of cross-correlation of discrete functions.
+
+In figure \ref{fig:xcrossSample} two signals are present. We can use cross-correlation to find out how much these two signals are similar. This can be done using equation \ref{eq:xcross}. Since our signal doesn't go to $\infty$, but only to 7, we will let $m=-7$ to $m=7$, so our equation will be the one shown in \ref{eq:xcross2}.
+
+\begin{equation}
+\label{eq:xcross2}
+\centering
+(f\star g)(t)=\sum\limits_{m=-7}^{m=7}f(t)*g(t+m)
+\end{equation}
+
+We can establish from the graph that the two signals have consist of the two following data sets:
+Green: \[0,1,2,1,0,0,0\]
+Blue: \[0,0,0,1,2,1,0\]
+These are the data points from 1-7. Any data point outside of that range will be zero. We will also use $t=-7$ to $t=7$ to cover the negative side in case of a left side shift.
+
+We can then, following equation \ref{eq:xcross2}, calculate the cross-correlation:
+
+\begin{equation}
+\label{eq:xcrossCalculation}
+\centering
+\\$(f\star g)(-7)=f(-7)*g(-7+(-7)+f(-7)*g(1+(-6))+...+f(-7)*g(-7+6)+f(1)*g(-7+7)$\\
+$(f\star g)(-6)=f(-6)*g(-6+(-7)+f(-6)*g(2+(-6))+...+f(-6)*g(-6+6)+f(2)*g(-6+7)$\\
+$(f\star g)(-5)=f(-5)*g(-5+(-7)+f(-5)*g(3+(-6))+...+f(-5)*g(-5+6)+f(3)*g(-5+7)$\\
+$(f\star g)(-4)=f(-4)*g(-4+(-7)+f(-4)*g(4+(-6))+...+f(-4)*g(-4+6)+f(4)*g(-4+7)$\\
+(f\star g)(-3)=f(-3)*g(-3+(-7)+f(-3)*g(5+(-6))+...+f(-3)*g(-3+6)+f(5)*g(-3+7)\\
+(f\star g)(-2)=f(-2)*g(-2+(-7)+f(-2)*g(6+(-6))+...+f(-2)*g(-2+6)+f(6)*g(-2+7)\\
+(f\star g)(-1)=f(-1)*g(-1+(-7)+f(-1)*g(7+(-6))+...+f(-1)*g(-1+6)+f(7)*g(-1+7)\\
+(f\star g)(0)=f(0)*g(0+(-7)+f(0)*g(0+(-6))+...+f(0)*g(0+6)+f(0)*g(0+7)\\
+(f\star g)(1)=f(1)*g(1+(-7)+f(1)*g(1+(-6))+...+f(1)*g(1+6)+f(1)*g(1+7)\\
+(f\star g)(2)=f(2)*g(2+(-7)+f(2)*g(2+(-6))+...+f(2)*g(2+6)+f(2)*g(2+7)\\
+(f\star g)(3)=f(3)*g(3+(-7)+f(3)*g(3+(-6))+...+f(3)*g(3+6)+f(3)*g(3+7)\\
+(f\star g)(4)=f(4)*g(4+(-7)+f(4)*g(4+(-6))+...+f(4)*g(4+6)+f(4)*g(4+7)\\
+(f\star g)(5)=f(5)*g(5+(-7)+f(5)*g(5+(-6))+...+f(5)*g(1+6)+f(5)*g(5+7)\\
+(f\star g)(6)=f(6)*g(6+(-7)+f(6)*g(6+(-6))+...+f(6)*g(2+6)+f(6)*g(6+7)\\
+(f\star g)(7)=f(7)*g(7+(-7)+f(7)*g(7+(-6))+...+f(7)*g(3+6)+f(7)*g(7+7)$\\
+\end{equation}
+
+\begin{equation}
+\label{eq:xcrossCalculation}
+\centering
+\\$(f\star g)(1)=\\
+(f\star g)(2)=\\
+(f\star g)(3)=\\
+(f\star g)(4)=\\
+(f\star g)(5)=\\
+(f\star g)(6)=\\
+(f\star g)(7)=$\\
+\end{equation}
+
+Instead of letting m be in the range of $-\infty$ to $\infty$, we will let our sample size control the range, as in equation \ref{eq:xcrossN}
+\begin{equation}
+\label{eq:xcrossN}
+\centering
+(f\star g)(t)=\sum\limits_{m=-N}^{m=N}f(t)*g(t+m)
+\end{equation}
+
+
 \subsubsection{Test Matlab}
 Before we went any further with the project we investigated which kind of signals which was good to send. We did that by generating a signal, made a delay and then cross-correlated these two signals, chirp, sinusoid and noise.
 We tried three different signals\\
