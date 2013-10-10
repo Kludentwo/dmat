@@ -3,27 +3,52 @@
 \subsection{Xcorr}
 \subsubsection{Theory}
 \subsubsection{Test Matlab}
-Before we went any further with the project we investigated which kind of signals which was good to send. We did that by generating a signal, made a delay and then cross-correlated these two signals.
+Before we went any further with the project we investigated which kind of signals which was good to send. We did that by generating a signal, made a delay and then cross-correlated these two signals, chirp, sinusoid and noise.
 We tried three different signals\\
 \textbf{Chirp}:\\
 We started with a chirp. We did that because of gut feeling. We thought this would be the best signal to send mostly because it was controlled and not random, and the signal changed characteristic over time.\\
 Below is shown the code we used to generate the signal, make the delay and do the cross-correlation:
 \begin{lstlisting}[language=Matlab,frame=lrtb,label=Matlab Code for Chirp Cross-correlation]
 Fs=48000;                                       % Sample frequency
-t = [0:1/Fs:2000/Fs];                           % Timeinterval and length
+t = [0:1/Fs:1];                                % Timeinterval and length
 Frq1=14000;                                     % Start frequency for chirp
 Frq2=14100;                                     % End frequency for chirp
 delay = 2000;                                   % Signal Delay
 Chirp_signal=chirp(t,Frq1,1,Frq2);              % Chirp signal generation
-Chirp_delayed=[zeros(1,delay),Chirp_signal];    % Chip delay generation
+Chirp_delayed=[zeros(1,delay) Chirp_signal];    % Chip delay generation
 Chirp_xcorr=xcorr(Chirp_signal,Chirp_delayed);  % Cross-correlation
 LengthChirp_xcorr=length(Chirp_xcorr)           % Calculate length of Xcorr
 [XmaxChirp_xcorr,YmaxChirp_xcorr]=max(Chirp_xcorr) % Find maximum value
 Delay_calcX1X2=((LengthChirp_xcorr+1)/2)-YmaxChirp_xcorr % Calculate Delay
 \end{lstlisting}
-Below is the plot of the cross-correlation. It shows clearly where the to signal overlap.
+Below is the plot of the cross-correlation. It shows clearly where the to signal overlap.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{billeder/chirp_xcorr_fig}
+\caption{Plot of Cross-correlation of chirp signals}
+\label{fig:chirp_xcorr_plot}
+\end{figure}
+The figure clearly shows where the two signals perfectly overlap. So the chirp seems like a good signal to use. although it isn't perfectly sharp in one sample it is quite distinct.\\
 \textbf{Sinusoid}:\\
+Similar code as the chirp was used to make two sinusoid signal. Below is a plot of a 14kHz sinus delayed with the same amount as the chrip signal.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{billeder/sinus_xcorr_fig}
+\caption{Plot of Cross-correlation of sinusoid signal}
+\label{fig:sinus_xcorr_plot}
+\end{figure}
+This cross-correlation doesnt have as nice a peak as the chirp did and therefore we discarded using a sinusoid. The correlation looks like this because the sinus will make a spike every period because the periods will overlay eachother, this will increase until the signals completely overlays eachother.\\
 \textbf{Noise}:\\
+Lastly we tried generating a noise signal using the built-in function wgn (white gaussian noise). Below is shown the cross-correlation of the noise signals.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{billeder/noise_xcorr_fig}
+\caption{Plot of cross-correlation of noise signal}
+\label{fig:noise_xcorr_plot}
+\end{figure}
+This correlation made an even harder spike then the chirp. This is because of the fact that the  two noise signal only are similar in a very specific point. When they are not completely overlaying each other most samples end up cancelling each others.
+\subsection{Findings based on examination in matlab}
+It is clear that the chirp as well as the noise are very distinct peaks where the signals overlap. 
 \subsection{Output}
 \textbf{UART}:\\
 VisualDSP++ comes with an example project for UART. We tried running the example project but we had no luck. We could not get the example project to work. We searched the internet for other example projects but still, we could not get them to work. \\

@@ -1,12 +1,28 @@
 \chapter{Implementation}
+This section will describe the most important parts of our implemenation and our considerations behind this implemenation.\\
 \section{Considerations}
 \subsection{Built-in functions}
-Sin()\\
-Xcorr\\
+\begin{lstlisting}[language=C]
+short sin_fr32(short x);\\
+\end{lstlisting}
+The built-in sin function takes in a value x, which represents time or to be more exact the length on the x-axis. So for example for x=3.1415 the output will be ~0. It returns the value on the y axis. To use the function properly you need to calculate the value in each quandrant of the unit circle. In the documentation in VisualDSP++ it is described how to calculate this. We decided not to use this function since we figured a lot of math was involved which would slow our system.
+
+\begin{lstlisting}[language=C]
+void crosscorr_fr32 (	const fract32  samples_x[ ], 
+                     	const fract32  samples_y[ ],
+                     	int            sample_length,
+                     	int            lags,
+                     	fract32        correlation[ ]);
+\end{lstlisting}
+The built-in cross correlation function takes in the two signals, in our case the output array, and the recorded array. Sample\_length is the length of the input arrays, and lags is the number of elements in the array for the cross correlation, correlation[].\\
+The function is extremely easy to get going with and very simple to use. Although it can take a long time to process large arrays, so it doesn't scale very well.\\
 \subsection{Output}
 \textbf{Sound and Decimation}:\\
 
 UART\\
+\subsection{Buffer sizes}
+
+\subsection{Output frequency}
 \section{Blackfin Setup}
 \subsection{DMA}
 The DMA is setup using SPI on the blackfin. We have used code from the example project "Audio Talk-Through" Which initiates the dma channels 1, 2 and 5 for input, output and moving data to the built in audio codec. The DMA has the following init parts:
