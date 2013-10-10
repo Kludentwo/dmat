@@ -1,3 +1,4 @@
+
 \documentclass[a4paper,11pt,openany]{memoir} 	% Openright aabner kapitler paa hoejresider (openany begge)
 
 %%%% PACKAGES %%%%
@@ -8,17 +9,11 @@
 \usepackage[T1]{fontenc}					% Output-indkodning af tegnsaet (T1)
 \usepackage{ragged2e,anyfontsize}			% Justering af elementer
 \usepackage{fixltx2e}						% Retter forskellige fejl i LaTeX-kernen
-\usepackage[bf, small, raggedright, compact]{titlesec}
+
 \usepackage{lastpage}
 
 
-\titlespacing*{\chapter}{0pt}{0pt}{20pt}
-\titleformat{\chapter}% reformat chapter headings
-    [hang]% like section, with number on same line
-    {\Large\bfseries}% formatting applied to whole
-    {\thechapter}% Chapter number
-    {1em}% space between # and title
-    {}% formatting applied just to title
+
 \usepackage{color}
 \definecolor{codegreen}{rgb}{0.1,0.5,0.1}
 \usepackage{listings}
@@ -40,7 +35,33 @@
 %\LARGE 
 %\huge 
 %\Huge 
-													
+		% Chapter  %
+\definecolor{numbercolor}{gray}{0.7}		% Definerer en farve til brug til kapiteludseende
+\newif\ifchapternonum
+
+\makechapterstyle{E4}{					% Definerer kapiteludseende frem til ...
+  \renewcommand\beforechapskip{0pt}
+  \renewcommand\printchaptername{}
+  \renewcommand\printchapternum{}
+  \renewcommand\printchapternonum{\chapternonumtrue}
+  \renewcommand\chaptitlefont{\fontfamily{pbk}\fontseries{db}\fontshape{n}\fontsize{25}{35}\selectfont\raggedleft}
+  \renewcommand\chapnumfont{\fontfamily{pbk}\fontseries{m}\fontshape{n}\fontsize{1in}{0in}\selectfont\color{numbercolor}}
+  \renewcommand\printchaptertitle[1]{%
+    \noindent
+    \ifchapternonum
+    \begin{tabularx}{\textwidth}{X}
+    {\let\\\newline\chaptitlefont ##1\par} 
+    \end{tabularx}
+    \par\vskip-2.5mm\hrule
+    \else
+    \begin{tabularx}{\textwidth}{Xl}
+    {\parbox[b]{\linewidth}{\chaptitlefont ##1}} & \raisebox{-15pt}{\chapnumfont \thechapter}
+    \end{tabularx}
+    \par\vskip2mm\hrule
+    \fi
+  }
+}
+\chapterstyle{E4}												
 % ¤¤ Figurer og tabeller (floats) ¤¤ %
 \usepackage{graphicx} 						% Haandtering af eksterne billeder (JPG, PNG, EPS, PDF)
 %\usepackage{eso-pic}						% Tilfoej billedekommandoer paa hver side
@@ -92,10 +113,9 @@
   topsep=0pt,								% Vertikal afstand mellem tekst og listen
   itemsep=-1ex,								% Vertikal afstand mellem items
 } 
-%    FIXME!!!   %
-\usepackage[footnote,draft]{fixme}
 
-  
+
+
 \makeevenfoot{plain}{}{Page \thepage\ of \pageref{LastPage}}{}
 \makeoddfoot{plain}{}{Page \thepage\ of \pageref{LastPage}}{}
 \makeevenhead{plain}{Nicolai Glud - 11102}{Rasmus Lund-Jensen - 11111}{Johnny Kristensen - 10734}
