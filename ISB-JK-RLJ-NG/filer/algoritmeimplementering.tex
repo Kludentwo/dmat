@@ -34,82 +34,117 @@ The DMA is setup using SPI on the blackfin. We have used code from the example p
 *pDMA1_X_MODIFY // Number of bytes between each transfer
 \end{lstlisting}
 In our setup we are using 32 bytes so the DMA in- and output are set to 32 bytes, 8 bursts of 4 bytes at a time. We map the in and output dma channels to Sport0 Rx and Tx. Sport0 is connected to our physical ports described below. The last thing we have to do is enable the DMA channels and that is done with the \begin{quote}
-"DMAEN"
-\end{quote}  flag in the 
-\begin{quote}
-"pDMA1\_CONFIG"
+"DMAEN" flag in the "pDMA1\_CONFIG".
 \end{quote}
-.\\
-\section{Important code descriptions}
-Input/output ISR\\
-\textbf{Main.c}:\\
+\subsection{Sport0}
+The Sport0 is set up using the table \ref{table:Sport0}
+\begin{table}[htbp]
+    \begin{tabular}{| p{1.5cm} | l | p{4.5cm} | p{4.5cm} |}
+    \hline
+    C++ def      & Comment                   & Clear bit to 0                                   & Set bit to 1                             \\ \hline
+    TFSR RFSR   & Frame sync required 		 & Does not require frame sync for every word & Requires frame  					sync for every word \\ \hline
+    ITFS IRFS   & Internal frame  					sync & Use external  					frame sync                    & Use internal  					frame sync            \\ \hline
+    ITCLK IRCLK & Internal clock            & Use external  					clock                         & Use internal  					clock                 \\ \hline
+    TSPEN RSPEN & Enable                    & Disable transmit  					or receive                & Enable transmit  					or receive         \\ \hline
+    \end{tabular}
+    \caption{Sport0 Initialization}
+    \label{table:Sport0}
+\end{table}
+Our Sport0 is set up the same way as the "talkthrough" project with: "External CLK, External Frame sync, MSB first". MSB first is instantiated by writing SLEN$\_$32 to the second register. Lastly we enable it by writing "TSPEN" and "RSPEN" to the registers pSPORT0 TCR1 and RCR1.
+\subsection{Interrupts}
+Interrups are set up using the 4 registers SIC$\_$IAR0 to 2 and SIC$\_$IMASK. We want to use DMA1 (Sport0 RX) Interrupt so we set the second word of the SIC$\_$IAR1 to 2. We also have to register ISR handlers to Sport0 and then enable interrupt. The interrupt code will then be:
 \begin{lstlisting}[language=C]
-// Calculation of Delay
-for(myCount = 0; myCount < SAMPLES; myCount++)
-{
-	if(corr[myCount] > maxNum)
-	{
-		maxNum = corr[myCount];
-		place = myCount;	
-	}
-// Conversion from samples to distance
-	if(myCount == (SAMPLES - 1))
-	{
-		time = (place*100)/fs;
-		dist = (time * velocity)/200;
-	}
-}
-// 10 times averaging
-if(numDist < 10){
-	totaldist += dist;
-	numDist++;
-}
-else
-{
-	totaldist = totaldist/10;
-	sound_factor = totaldist/20;
-	totaldist = 0;
-	numDist = 0;
-}
-// Set flags to begin distance measurements
-num1 = 0;
-playFlag = 1;
-recFlag = 1;
+*pSIC_IAR0 = 0xffffffff;
+*pSIC_IAR1 = 0xffffff2f; // DMA1 (Sport0 RX)
+*pSIC_IAR2 = 0xffffffff;
+
+register_handler(ik_ivg9, Sport0_RX_ISR); //Handler
+
+*pSIC_IMASK = 0x00000200; // enable interrupt
 \end{lstlisting}
+\section{Important code descriptions}
+\textbf{Defines:}\\
 
 
-\textbf{Processdata.c}:\\
+\textbf{calc$\_$dist}:\\
 \begin{lstlisting}[language=C]
-// playing sound part
-if(num1>OUTPUTLEN){
-	playFlag = 0;
+int time = 0;
+int fs = 48;
+int velocity = 340;
+int dist = 0;
+int totaldist = 0;
+int numDist = 0;
+int sound_factor=0;
+int avg = 10;
+int place = 0;
+int myCount = 0;
+int maxNum = 0;
+int olddist = 0;
+//filter coeficients:
+float alpha = 0.3;
+
+int calc_dist(short* corr){
+	maxNum = 0;
+            
+	for(myCount = 0; myCount < SAMPLES; myCount++)
+	{
+		if(corr[myCount] > maxNum)
+		{
+			maxNum = corr[myCount];
+			place = myCount;	
+		}
+		if(myCount == (SAMPLES - 1))
+		{
+			time = (place*100)/fs;
+			dist = (1.096*(time * velocity)/200)-425;
+		}
+	}
+	//average distance:
+	olddist = totaldist;
+	totaldist = dist*alpha + olddist*(1-alpha);
+	
+	sound_factor = totaldist/100;
+	return totaldist;	
 }
-if(playFlag){
-	yn = (sound[num1] << 2);
-	iChannel0LeftOut = (yn << 16);
-		
-}
-// recording part
-if(num1>INPUTLEN){
-	recFlag = 0;
-}
-if(recFlag)
+\end{lstlisting}
+\textbf{Discription of calc$\_$dist function:}\\
+
+\textbf{Process$\_$Data}:\\
+\begin{lstlisting}[language=C]
+void Process_Data(void)
 {
-	soundIn[num1] = (short)(iChannel0LeftIn >> 14);
+	// Output Del
+	if(num1>OUTPUTLEN){
+		playFlag = 0;
+	}
+	if(playFlag){
+		yn = (sound[num1] << 2);
+		iChannel0LeftOut = (yn << 16);
+			
+	}
+	
+	if(num1>INPUTLEN){
+		recFlag = 0;
+	}
+	if(recFlag)
+	{
+		soundIn[num1] = (short)(iChannel0LeftIn >> 14);
+	}
+	num1++;
+	num2 = num2 + 20 + sound_factor; //Soundfactor is the distance in 1/10 meter
+	num2 = num2 % 2000; 	// because the sinus buffer is 2000 samples
+				// we want the remainder of 2000
+				//because maybe num2 become more 
+				//then just 1 more the 2000 
+				//and we want the sinus to flow
+	
+	if(num1>5000){
+		doX = 1;
+	}
+	xn = sinus[num2];
+	
+	iChannel0RightOut = (xn << 16);
 }
-num1++;
-if(num1>5000){
-	doX = 1; // Start crosscorrelation-flag
-}
-// generate output sound
-num2 = num2 + 10 + sound_factor;//Soundfactor is the distance in 
-				//  1/10 meter
-num2 = num2 % 2000;	// because the sinus buffer is 2000 samples
-			// we want the remainder of 2000 because 
-			// maybe num2 become more then just 1 more 
-			// the 2000 and we want the sinus to flow
-xn = sinus[num2];			
-iChannel0RightOut = (xn << 16);
 \end{lstlisting}
 \section{Signal/datatypes}
 \section{Our Xcorr}
