@@ -21,9 +21,8 @@ The function is extremely easy to get going with and very simple to use. Althoug
 The output sound is generated via. decimation and the fact that the system constantly outputs samples with 48kHz.\\
 In matlab we generated a signal of one period with 2000 samples. Running through this one at a time once every 1/48kHz would make an output frequency of: $\frac{48000Hz}{2000}=24Hz$. This is a very low frequent sound so we needed to step faster through this period. A step of 30 each time would give an output frequency of $\frac{48000Hz}{\frac{2000}{30}}=720Hz$. We figured this was nice for a distance of 0mm. Our calculation of distance returnes the distance in mm and since we measure around 3m it would be way to large, since a step of 3030 would go more then through the array with the period making some aliasing problems. We choose to convert the distance from mm til decimeters. This means we go from steps of 30 to steps of 60, making the highest frequency $\frac{48000Hz}{\frac{2000}{30}}=1440Hz$. The frequencies are very distinguishable and also pleasant to hear.\\
 UART\\
-\subsection{Buffer sizes}
-
 \subsection{Output frequency}
+
 \section{Blackfin Setup}
 \subsection{DMA}
 The DMA is setup using SPI on the blackfin. We have used code from the example project "Audio Talk-Through" Which initiates the dma channels 1, 2 and 5 for input, output and moving data to the built in audio codec. The DMA has the following init parts:

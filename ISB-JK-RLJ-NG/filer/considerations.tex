@@ -1,4 +1,5 @@
 \chapter{System considerations}
+The following chapter aims to explain some of the considerations we made when we did the preliminary study. 
 \section{Platform}
 We have worked with several different platforms throughout the courses in our education. A valid choice for platform would be the PSoC 3(5) that we had already worked on. We had been told from other students taking this course that the PSoC was not ideal for sound processing and that the blackfin platform had built in features for this. We had no idea how to use the blackfin so it was a great opportunity to learn to use another platform. 
 \subsection{PSoC}
@@ -46,7 +47,8 @@ We went along with hearable sound by suggestion from Peter. Hearable sound is ea
 
 \section{Equipment}
 \subsection{I/O}
-
+\fixme{If we remember what this was about}
 \subsection{Ultrasonic sensor}
 We had an ultrasonic sensor of the brand "Ping)))". This didnt really conflict with the concern about using ultrasound since it had a simple electrical interface, but it was not much about digital signal processing but more about timing so we didn't feel it was a good way to go.
 \subsection{Speaker/Mic}
+If we were to use a speaker combined with a microphone, the first thing we needed was the actual components. We also had to find out how exactly we were to connect these units to the blackfin. The microphone would have to have input biasing as the input channel on microprocessors usually range from 0V to 3.3V or 5V. The speaker would either have to be active or we would be connected to an amplifier. 
