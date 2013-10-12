@@ -1,4 +1,25 @@
-\chapter{algoritmimplementation}
+\chapter{Algoritm Implementation}
 Her tager vi de krav som vi har fundet i development og de krav som vi har bestemt i requirements og skal finde fx en platform som opfylder dem (se platform section). Vi skal også finde ud af hvordan man så kan omdanne vores matematiske / matlab algoritme til kode
 \section{Platform (BlackFin)}
 Her beskriver vi alle de ting som gør at vi har valgt BlackFin og de overvejelser der har været i forbindelse med det. Alt fra valget på baggrund af tilgængelig, interesse og andet over initializering og talkthrough til bufferstørrelser, MDA, implementeringskoden (den indbyggede og vores egen)
+
+\section{Fixed-/FloatingPoint}
+\subsection{Floating Point}
+Floating point is a way of give approximation of a real value. Usually when working with floating point we have a fixed number of significant digits. A way of presenting a floating point number is "1.2345". Floating point types in c are double and float. The main advantage of floating point is high precision. This comes at a cost of performance and component price.\\
+\subsection{Fixed Point}
+Fixed point arithmetic is a way to represent a number that has a fixed number of digits before and after the the decimal "." point. Fixed point arithmetic is especially useful for representing fract data types in base 2 or base 10. A way to represent "1.23" in fixed point is "1230". A scaling factor was used. Scaling factors are usually base 2 or base 10. The main advantage of fixed point is performance. This comes at a price of precision. Some embedded microprocessors can not process floating point as it requires a floating point unit(FPU).\\
+\subsection{Choice}
+The blackfins built in fixed point arithmetic system makes it ideal to operate in fixed point. Our systems real time demand means we have to have great performance which leads to the choice of using fixed point arithmetic throughout the our system. A performance example would be to multiplication of variables. Table~\ref{tab:performance} shows some clock-cycle readings from multiplication. The table clearly shows that the best performance is found using assembly and short data types, but we chose to write everything in c using short data types because that is what we were most familiar with.
+\begin{table}[hbtp]
+	\centering
+    \begin{tabular}{| p{4.5cm} | p{2.5cm} |}
+    \hline
+    Format                   & Clock cycles \\ \hline
+    C style integer, 32 bit  & around 3000  \\ \hline
+    Assembly integer, 32 bit & around 500   \\ \hline
+    Float                    & around 16000 \\ \hline
+    Assembly short, 16 bit   & around 70    \\ \hline
+    \end{tabular}
+    \caption{example of multiplication performance table}
+    \label{tab:performance}
+\end{table}
