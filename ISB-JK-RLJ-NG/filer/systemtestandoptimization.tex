@@ -1,11 +1,35 @@
 \chapter{systemtestandoptimization}
 Vi begynder nu at tage de tests som vi har lavet i den sidste periode og bearbejde dem. Alle overvejelser omkring C-koden og egen implementation af xcorr skal også ind her. Særligt de operationsmålinger som vi (desværre) ikke fik taget billeder af. D'oh Rasmus! Der skal også lineariseringen som Johnny har arbejdet på ind her
 \section{Test setup}
+\subsection{test of speaker maybe}
 hest
+\subsection{test of microphone maybe}
+hest
+
+\subsection{Full system test}
+The setup consists of 2 speakers, a microphone and a blackfin bf533 kit connect to a computer running VisualDSP++. One of the speakers is connected to the blackfins left audioport0 and one is connected to the right audioport0. The microphone is connected to the blackfins left inputport0. 
 
 \section{Test description}
-hest
+\subsection{Full system test}
+A piece of wood is placed at fixed intervals in front of the system. These intervals are in millimetres: 250, 500, 750, 1000, 1250, 1500, 1750, 2000. The output is found in the VisualDSP++ debugger by placing a breakpoint after measuring distance. 
 
 \section{Test results}
+\subsection{Full system test}
+\begin{table}[H]
+\centering
+    \begin{tabular}{|l|l|}
+    \hline
+    Real Distance (mm) & Measured Distance (mm) \\ \hline
+    250                & 4                      \\ \hline
+    500                & 2                      \\ \hline
+    750                & 0                      \\ \hline
+    1000               & big                    \\ \hline
+    1250               & lazy                   \\ \hline
+    1500               & iterative              \\ \hline
+    1750               & zebras                 \\ \hline
+    2000               & eating                 \\ \hline
+    Placeholder        & it                     \\ \hline
+    \end{tabular}
+\end{table}
 
 \section{Optimization}
