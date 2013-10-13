@@ -210,7 +210,8 @@ The ISR routine runs once every 1/48000Hz. It calls our function \texttt{\textco
 To explore performance on the blackfin regarding cross correlation, we wanted to see how much of a performance loss we would get, if we implemented our own implementation of the cross correlation in c using short integers. The implementation is just a c variant of the implementation shown in Algorithm Development. We counted the clock cycles using the cycle\_count.h library. We expected the custom implementation to be significantly slower than the integrated considering it was not even in assembly.
 We see that the performance loss is of factor ~12 which corresponds to our expectations.
 
-\begin{table}
+\begin{table}[H]
+\centering
     \begin{tabular}{|l|l|}
     \hline
     Performance                          & Clock cycles \\ \hline
@@ -218,18 +219,17 @@ We see that the performance loss is of factor ~12 which corresponds to our expec
     crosscorr\_fr16 (integrated function) & 24.174.317   \\ \hline
     \end{tabular}
 \end{table}
-
 \begin{lstlisting}[language=C]
-		for (i = 0; i < SAMPLES; i++)
-		{
-    		for (delayedIndex = i; delayedIndex < SAMPLES; delayedIndex++)
-    		{
-    			//Delayed gange ikke delayed
-        		corr2[i] = corr2[i] + ((delayedSig[delayedIndex])*(origSig[originalIndex]) >> 24);
-        		originalIndex++;
-    		}
-    		originalIndex = 0;
-		}
+for (i = 0; i < SAMPLES; i++)
+{
+	for (delayedIndex = i; delayedIndex < SAMPLES; delayedIndex++)
+	{
+		//Delayed gange ikke delayed
+    	corr2[i] = corr2[i] + ((delayedSig[delayedIndex])*(origSig[originalIndex]) >> 24);   
+    	originalIndex++;
+	}
+    	originalIndex = 0;
+}
 \end{lstlisting}
 
 As seen in the code we bit shift the multiplication 24 times. This is done to remain within our data format, short. This doesn't effect our result in the exact spot here as the relative differences between the samples are kept. But this doesn't scale well. If the amplitude of the signal is too small, the bit shifting will remove the signal and our cross correlation result won't be correct. Also, bit shifting might not even be enough if the signals are large enough in amplitude.
