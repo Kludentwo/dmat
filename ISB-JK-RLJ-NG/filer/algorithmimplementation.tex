@@ -57,6 +57,28 @@ We started by using 24000 size arrays. This means we had to use SDRAM. In an att
 The next step in the choice of buffer size was to look at the arrays we made in matlab. We asked ourselves what the smallest possible array with chirp and noise we could play with 48kHz was. We tried playing a 1000 sample chirp and found that it didn't play properly. The next step was to double the size to 2000. This time the chirp played properly.\\
 The last step was to think about the speed of sound. \fixme{johnnys story about bigger buffers and the speed of sound}
 
+\subsection{Built-in functions}
+\begin{lstlisting}[language=C]
+short sin_fr32(short x);\\
+\end{lstlisting}
+The built-in sin function takes in a value x, which represents time or to be more exact the length on the x-axis. So for example for x=3.1415 the output will be ~0. It returns the value on the y axis. To use the function properly you need to calculate the value in each quandrant of the unit circle. In the documentation in VisualDSP++ it is described how to calculate this. We decided not to use this function since we figured a lot of math was involved which would slow our system.
+
+\begin{lstlisting}[language=C]
+void crosscorr_fr32 (	const short    samples_x[ ], 
+                     	const short    samples_y[ ],
+                     	int            sample_length,
+                     	int            lags,
+                     	short          correlation[ ]);
+\end{lstlisting}
+The built-in cross correlation function takes in the two signals, in our case the output array, and the recorded array. Sample\_length is the length of the input arrays, and lags is the number of elements in the array for the cross correlation, correlation[].\\
+The function is extremely easy to get going with and very simple to use. Although it can take a long time to process large arrays, so it doesn't scale very well.\\
+\subsection{Output}
+\textbf{Sound and Decimation}:\\
+The output sound is generated via. decimation and the fact that the system constantly outputs samples with 48kHz.\\
+In matlab we generated a signal of one period with 2000 samples. Running through this one at a time once every 1/48kHz would make an output frequency of: $\frac{48000Hz}{2000}=24Hz$. This is a very low frequent sound so we needed to step faster through this period. A step of 30 each time would give an output frequency of $\frac{48000Hz}{\frac{2000}{30}}=720Hz$. We figured this was nice for a distance of 0mm. Our calculation of distance returnes the distance in mm and since we measure around 3m it would be way to large, since a step of 3030 would go more then through the array with the period making some aliasing problems. We choose to convert the distance from mm til decimeters. This means we go from steps of 30 to steps of 60, making the highest frequency $\frac{48000Hz}{\frac{2000}{30}}=1440Hz$. The frequencies are very distinguishable and also pleasant to hear.\\
+\textbf{UART}\\
+\subsection{Output frequency}
+
 \subsection{Convert to BF}
 The blackfin has a small "hack" when it comes to loading sound from memory:
 \begin{lstlisting}[language=C]
@@ -153,3 +175,91 @@ register_handler(ik_ivg9, Sport0_RX_ISR); //Handler
 hest
 
 \section{Code functions}
+\textbf{Defines:}\\
+
+
+\textbf{calc$\_$dist}:\\
+\begin{lstlisting}[language=C]
+int time = 0;
+int fs = 48;
+int velocity = 340;
+int dist = 0;
+int totaldist = 0;
+int numDist = 0;
+int sound_factor=0;
+int avg = 10;
+int place = 0;
+int myCount = 0;
+int maxNum = 0;
+int olddist = 0;
+//filter coeficients:
+float alpha = 0.3;
+
+int calc_dist(short* corr){
+	maxNum = 0;
+            
+	for(myCount = 0; myCount < SAMPLES; myCount++)
+	{
+		if(corr[myCount] > maxNum)
+		{
+			maxNum = corr[myCount];
+			place = myCount;	
+		}
+		if(myCount == (SAMPLES - 1))
+		{
+			time = (place*100)/fs;
+			dist = (1.096*(time * velocity)/200)-425;
+		}
+	}
+	//average distance:
+	olddist = totaldist;
+	totaldist = dist*alpha + olddist*(1-alpha);
+	
+	sound_factor = totaldist/100;
+	return totaldist;	
+}
+\end{lstlisting}
+\textbf{Discription of calc$\_$dist function:}\\
+
+\textbf{Process$\_$Data}:\\
+\begin{lstlisting}[language=C]
+void Process_Data(void)
+{
+	// Output Del
+	if(num1>OUTPUTLEN){
+		playFlag = 0;
+	}
+	if(playFlag){
+		yn = (sound[num1] << 2);
+		iChannel0LeftOut = (yn << 16);
+			
+	}
+	
+	if(num1>INPUTLEN){
+		recFlag = 0;
+	}
+	if(recFlag)
+	{
+		soundIn[num1] = (short)(iChannel0LeftIn >> 14);
+	}
+	num1++;
+	num2 = num2 + 20 + sound_factor; //Soundfactor is the distance in 1/10 meter
+	num2 = num2 % 2000; 	// because the sinus buffer is 2000 samples
+				// we want the remainder of 2000
+				//because maybe num2 become more 
+				//then just 1 more the 2000 
+				//and we want the sinus to flow
+	
+	if(num1>5000){
+		doX = 1;
+	}
+	xn = sinus[num2];
+	
+	iChannel0RightOut = (xn << 16);
+}
+\end{lstlisting}
+
+\section{Signal/datatypes}
+\section{Our Xcorr}
+Description\\
+Implementation\\

@@ -51,65 +51,7 @@ We didnt realy consider laser since we would rather try to play around with soun
 We went along with hearable sound by suggestion from Peter. Hearable sound is easier to work with since, yes we can hear it, but it is easier to measure and produce. When we record sound we also get a lot of sample which we can process.\\
 \textbf{Equipment}\\
 We had both speaker and microphones available.
-\subsection{Cross-correlation}
-\subsubsection{Theory}
-Cross-correlation is a method used for comparing two signals. This can for example be with the purpose of finding specific features, patterns or identical signals.
 
-
-\begin{equation}
-\label{eq:xcross}
-\centering
-(f\star g)(t)=\sum\limits_{m=-\infty}^{m=\infty}f(t)*g(t+m)
-\end{equation}
-The equation in \ref{eq:xcross} is the mathematical expression of cross-correlation of discrete functions.
-
-In figure \ref{fig:xcrossSample} two signals are present. We can use cross-correlation to find out how much these two signals are similar. This can be done using equation \ref{eq:xcross}. Since our signal doesn't go to $\infty$, but only to 7, we will let $m=-7$ to $m=7$, so our equation will be the one shown in \ref{eq:xcross2}.
-
-\begin{equation}
-\label{eq:xcross2}
-\centering
-(f\star g)(t)=\sum\limits_{m=-7}^{m=7}f(t)*g(t+m)
-\end{equation}
-
-We can establish from the graph that the two signals have consist of the two following data sets:
-Green: \[0,1,2,1,0,0,0\]
-Blue: \[0,0,0,1,2,1,0\]
-These are the data points from 1-7. Any data point outside of that range will be zero. We will also use $t=-7$ to $t=7$ to cover the negative side in case of a left side shift.
-
-We can then, following equation \ref{eq:xcross2}, calculate the cross-correlation:
-
-\begin{center}
-$(f\star g)(-7)=f(-7)*g(-7+(-7)+f(-7)*g(1+(-6))+...+f(-7)*g(-7+6)+f(1)*g(-7+7)$\\
-$(f\star g)(-6)=f(-6)*g(-6+(-7)+f(-6)*g(2+(-6))+...+f(-6)*g(-6+6)+f(2)*g(-6+7)$\\
-$(f\star g)(-5)=f(-5)*g(-5+(-7)+f(-5)*g(3+(-6))+...+f(-5)*g(-5+6)+f(3)*g(-5+7)$\\
-$(f\star g)(-4)=f(-4)*g(-4+(-7)+f(-4)*g(4+(-6))+...+f(-4)*g(-4+6)+f(4)*g(-4+7)$\\
-$(f\star g)(-3)=f(-3)*g(-3+(-7)+f(-3)*g(5+(-6))+...+f(-3)*g(-3+6)+f(5)*g(-3+7)$\\
-$(f\star g)(-2)=f(-2)*g(-2+(-7)+f(-2)*g(6+(-6))+...+f(-2)*g(-2+6)+f(6)*g(-2+7)$\\
-$(f\star g)(-1)=f(-1)*g(-1+(-7)+f(-1)*g(7+(-6))+...+f(-1)*g(-1+6)+f(7)*g(-1+7)$\\
-$(f\star g)(0)=f(0)*g(0+(-7)+f(0)*g(0+(-6))+...+f(0)*g(0+6)+f(0)*g(0+7)$\\
-$(f\star g)(1)=f(1)*g(1+(-7)+f(1)*g(1+(-6))+...+f(1)*g(1+6)+f(1)*g(1+7)$\\
-$(f\star g)(2)=f(2)*g(2+(-7)+f(2)*g(2+(-6))+...+f(2)*g(2+6)+f(2)*g(2+7)$\\
-$(f\star g)(3)=f(3)*g(3+(-7)+f(3)*g(3+(-6))+...+f(3)*g(3+6)+f(3)*g(3+7)$\\
-$(f\star g)(4)=f(4)*g(4+(-7)+f(4)*g(4+(-6))+...+f(4)*g(4+6)+f(4)*g(4+7)$\\
-$(f\star g)(5)=f(5)*g(5+(-7)+f(5)*g(5+(-6))+...+f(5)*g(1+6)+f(5)*g(5+7)$\\
-$(f\star g)(6)=f(6)*g(6+(-7)+f(6)*g(6+(-6))+...+f(6)*g(2+6)+f(6)*g(6+7)$\\
-$(f\star g)(7)=f(7)*g(7+(-7)+f(7)*g(7+(-6))+...+f(7)*g(3+6)+f(7)*g(7+7)$\\
-\ \\
-$(f\star g)(1)=$\\
-$(f\star g)(2)=$\\
-$(f\star g)(3)=$\\
-$(f\star g)(4)=$\\
-$(f\star g)(5)=$\\
-$(f\star g)(6)=$\\
-$(f\star g)(7)=$\\
-\end{center}
-
-Instead of letting m be in the range of $-\infty$ to $\infty$, we will let our sample size control the range, as in equation \ref{eq:xcrossN}
-\begin{equation}
-\label{eq:xcrossN}
-\centering
-(f\star g)(t)=\sum\limits_{m=-N}^{m=N}f(t)*g(t+m)
-\end{equation}
 
 \subsubsection{Signal analysis}
 Before we went any further with the project we investigated which kind of signals which was good to send. We did that by generating a signal, made a delay and then cross-correlated these two signals, chirp, sinusoid and noise.
@@ -167,33 +109,8 @@ VisualDSP++ comes with an example project for UART. We tried running the example
 \textbf{Sound}:\\
 The original scope of our project was to have an audio source as our output, while using a sound to measure distance. This worked well since we already had the knowledge from the talkthrough on how to output sound.\\
 We have a multitude of ways to create the sound we are playing. We could either create a sound in matlab and load it or we could create it directly on the blackfin. For testing purposes we chose the matlab solution. This would mean that once we have made the soundbits we wanted to use, we would have to convert them to a format known by the blackfin.
-\subsection{Convert to BF}
-The blackfin has a small "hack" when it comes to loading sound from memory:
-\begin{lstlisting}[language=C]
-short sound_buffer[length_of_signal] = { 
-#include "signal_you_want_to_use.hex"
-};
-\end{lstlisting}
-This means we have to convert our sound array to a hex format. The first thing we do when converting is reducing the amplitude of the signal to make sure it fits in a "c style short" datatype. Then we use a function "mydec2hex" which is an improved version of matlabs built-in function "dec2hex". After converting to hex-format we use the file descriptor to save the data into a hex file. The hex file is put in the project folder in VisualDSP++ and the codehack is put where you initialize your variables.
-\subsection{VisualDSP++}
-\subsubsection{Plot}
-VisualDSP++ has a built-in function to plot data from the memory of the blackfin. This feature can be used when the blackfin has been flashed and then subsequently halted. To access this feature go into:
-\begin{verbatim}
-View -> Debug Windows -> Plot -> New
-\end{verbatim}
-Set name, length and type of the data you want to plot and press \"Add\". This way you can have multiple plots on the same graph. It is also possible to have multiple plots and to save the setting of your plot. An example of plot can be seen on figure~\ref{fig:visualdspplot}.
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.5]{billeder/visualdspplot}
-\caption{Plot in VisualDSP++}
-\label{fig:visualdspplot}
-\end{figure}
-\subsubsection{Memory dump}
-A useful feature in VisualDSP++ is Memory dump. We can save the contents of arrays and variables directly onto the computer running VisualDSP++ in ".dat" format. To access this feature go into:
-\begin{verbatim}
-Memory -> Dump
-\end{verbatim}
-Set filename, type, size and variable/array name. Matlab can import these files directly. This feature is very useful when running tests and want to save data for later use or analysis.\\
+
+
 \section{System architecture}
 %Her skal vi lige finde ud af hvad vi skal have og om vi skal have det??
 
