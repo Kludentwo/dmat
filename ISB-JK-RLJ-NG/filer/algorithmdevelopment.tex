@@ -59,7 +59,11 @@ $(f\star g)(0:7)=[1\ 4\ 6\ 4\ 1\ 0\ 0\ 0]$\\
 
 Because of the nature of the math in the cross-correlation we will have the highest value in the element with the value identical to the times the recorded signal has to be shifted to the left in order to be identical to the output signal. This can be used to calculate the distance. More on that later.
 
-As we see the highest value is 6 in element 2 in the results data set. This fits with our own initial thoughts.
+As we see the highest value is 6 in element 2 in the results data set. This fits with our initial thoughts.
+
+The next step is to determine an implementation of the algorithm in MatLab. Once again we can choose to use an existing implementation or make our own. We did both.
+
+The existing implementation is a function called xcorr. Xcorr, as used by us, takes two parameters: the recorded audio and the output. It returns a data set and a set with the t values from equation \ref{eq:xcross}.
 
 \section{Signals}
 To determine which signal type which was most favourable to use we made a script in matlab which generated 3 signal types, here one signal without a delay and one with a delay. This way we can analyse which signals would return the sharpest spike when cross correlated.
