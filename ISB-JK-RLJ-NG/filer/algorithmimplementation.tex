@@ -1,4 +1,4 @@
-\chapter{Algoritm Implementation}
+\chapter{Algorithm Implementation}
 One of the first considerations when implementing a DSP algorithm in an embedded system is the choice of platform. 
 
 We have worked with or been presented to several different platforms throughout the courses in our education. Those relevant here are the following:
@@ -9,7 +9,12 @@ We have worked with or been presented to several different platforms throughout 
 \item DK8k
 \end{itemize}
 
-\begin{table} \label{tab:proscons}
+To give a rough estimate of which platform would be the best suited for our project, table \ref{tab:proscons} gives a quick-and-dirty sketch of pros and cons for the various platforms. The purpose is not to decide based on those only, but to quickly see if any platforms can be ruled out early in the process.
+We see that the best candidates for our system is DK8k and Blackfin. Because the DK8k has no IDE we would like to have a closer look at Blackfin. We have no prior experience with it - initially a con, but it can be an advantage to have the opportunity to work with a new platform as well and get to know it.
+Based on that, we dive further into the specs of the Blackfin to see if it fulfills our requirements from the development phase and the system requirements.
+
+\begin{table}[hbtp]
+ \label{tab:proscons}
     \begin{tabular}{l|ll}
     Platforms & Pros                          & Cons                           \\ \hline
     Blackfin  & FPU, fast, audio codec        & No prior experience            \\
@@ -18,9 +23,7 @@ We have worked with or been presented to several different platforms throughout 
     \end{tabular}
 \end{table}
 
-To give a rough estimate of which platform would be the best suited for our project, table \ref{tab:proscons} gives a quick-and-dirty sketch of pros and cons for the various platforms. The purpose is not to decide based on those only, but to quickly see if any platforms can be ruled out early in the process.
-We see that the best candidates for our system is DK8k and Blackfin. Because the DK8k has no IDE we would like to have a closer look at Blackfin. We have no prior experience with it - initially a con, but it can be an advantage to have the opportunity to work with a new platform as well and get to know it.
-Based on that, we dive further into the specs of the Blackfin to see if it fulfills our requirements from the development phase and the system requirements.
+
 
 \subsection{Blackfin}
 \textbf{Speed:}\\
@@ -91,7 +94,7 @@ In our setup we are using 32 bytes so the DMA in- and output are set to 32 bytes
 
 \subsection{Buffer sizes}
 We started by using 24000 size arrays. This means we had to use SDRAM. In an attempt to squeeze more performance out of our system we tried to limit ourselves to SRAM. The largest possible c style short array would be around 16000 elements. The next step was to try cross correlation with 2 16000 element signals. The cross correlation looked strange and somehow some of the cross correlation array was assigned to "unassigned" memory space.\\
-The next step in the choice of buffer size was to look at the arrays we made in matlab. We asked ourselves what the smallest possible array with chirp and noise we could play with 48kHz was. We tried playing a 1000 sample chirp and found that it didn't play properly. The next step was to double the size to 2000. This time the chirp played properly.\\
+We went a step back in the choice of buffer size to look at the arrays we made in matlab. We asked ourselves what the smallest possible array with chirp and noise we could play with 48kHz sample rate was. We tried playing a 1000 sample chirp in matlab and found that it didn't play properly. The next step was to double the size to 2000. This time the chirp played properly. We adopted this buffer size on the blackfin.\\
 
 
 \section{Blackfin Setup}
@@ -161,8 +164,9 @@ The function is extremely easy to get going with and very simple to use. Althoug
 \textbf{Sound and Decimation}:\\
 The output sound is generated via. decimation and the fact that the system constantly outputs samples with 48kHz.\\
 In matlab we generated a signal of one period with 2000 samples. Running through this one at a time once every 1/48kHz would make an output frequency of: $\frac{48000Hz}{2000}=24Hz$. This is a very low frequent sound so we needed to step faster through this period. A step of 30 each time would give an output frequency of $\frac{48000Hz}{\frac{2000}{30}}=720Hz$. We figured this was nice for a distance of 0mm. Our calculation of distance returnes the distance in mm and since we measure around 3m it would be way to large, since a step of 3030 would go more then through the array with the period making some aliasing problems. We choose to convert the distance from mm til decimeters. This means we go from steps of 30 to steps of 60, making the highest frequency $\frac{48000Hz}{\frac{2000}{30}}=1440Hz$. The frequencies are very distinguishable and also pleasant to hear.\\
-\textbf{UART}\\
+
 \subsection{Output frequency}
+\fixme{Output frequency chapter?}
 
 \subsection{Convert to BF}
 The blackfin has a small "hack" when it comes to loading sound from memory:
@@ -171,7 +175,7 @@ short sound_buffer[length_of_signal] = {
 #include "signal_you_want_to_use.hex"
 };
 \end{lstlisting}
-This means we have to convert our sound array to a hex format. The first thing we do when converting is reducing the amplitude of the signal to make sure it fits in a "c style short" datatype. Then we use a function "mydec2hex" which is an improved version of matlabs built-in function "dec2hex". After converting to hex-format we use the file descriptor to save the data into a hex file. The hex file is put in the project folder in VisualDSP++ and the codehack is put where you initialize your variables.
+This means we have to convert our sound array to a hex format using matlab. The first thing we do when converting is reducing the amplitude of the signal to make sure it fits in a "c style short" datatype. Then we use a function "mydec2hex" which is an improved version of matlabs built-in function "dec2hex". After converting to hex-format we use the file descriptor to save the data into a hex file. The hex file is put in the project folder in VisualDSP++ and the codehack is put where you initialize your variables.
 
 
 
