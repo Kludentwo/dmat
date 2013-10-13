@@ -99,8 +99,6 @@ We went a step back in the choice of buffer size to look at the arrays we made i
 
 
 \section{Blackfin Setup}
-\subsection{DMA}
-
 \subsection{Sport0}
 The Sport0 is set up using the table \ref{table:Sport0}
 \begin{table}[htbp]
@@ -166,9 +164,6 @@ The function is extremely easy to get going with and very simple to use. Althoug
 The output sound is generated via. decimation and the fact that the system constantly outputs samples with 48kHz.\\
 In matlab we generated a signal of one period with 2000 samples. Running through this one at a time once every 1/48kHz would make an output frequency of: $\frac{48000Hz}{2000}=24Hz$. This is a very low frequent sound so we needed to step faster through this period. A step of 30 each time would give an output frequency of $\frac{48000Hz}{\frac{2000}{30}}=720Hz$. We figured this was nice for a distance of 0mm. Our calculation of distance returnes the distance in mm and since we measure around 3m it would be way to large, since a step of 3030 would go more then through the array with the period making some aliasing problems. We choose to convert the distance from mm til decimeters. This means we go from steps of 30 to steps of 60, making the highest frequency $\frac{48000Hz}{\frac{2000}{30}}=1440Hz$. The frequencies are very distinguishable and also pleasant to hear.\\
 
-\subsection{Output frequency}
-\fixme{Output frequency chapter?}
-
 \subsection{Convert to BF}
 The blackfin has a small "hack" when it comes to loading sound from memory:
 \begin{lstlisting}[language=C]
@@ -177,8 +172,6 @@ short sound_buffer[length_of_signal] = {
 };
 \end{lstlisting}
 This means we have to convert our sound array to a hex format using matlab. The first thing we do when converting is reducing the amplitude of the signal to make sure it fits in a "c style short" datatype. Then we use a function "mydec2hex" which is an improved version of matlabs built-in function "dec2hex". After converting to hex-format we use the file descriptor to save the data into a hex file. The hex file is put in the project folder in VisualDSP++ and the codehack is put where you initialize your variables.
-
-
 
 \subsection{IDE: VisualDSP++}
 \subsubsection{Plot}
@@ -199,7 +192,6 @@ A useful feature in VisualDSP++ is Memory dump. We can save the contents of arra
 Memory -> Dump
 \end{verbatim}
 Set filename, type, size and variable/array name. Matlab can import these files directly.
-
 
 
 \section{System overview/architecture}
