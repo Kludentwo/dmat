@@ -1,2 +1,22 @@
 \chapter{analysis}
 De fysiske love. Hvordan kan man finde en afstand? Lyd (hoerbar/ultra), lys osv
+
+\section{Sound}
+Sound is motion of materials/mediums. By motion we mean in frequency. Sound can travel through all mediums and have different speeds depending of this medium. Sound is easy to analyse since we have a lot of tools (fourier transform, spectrum analysing, plot etc) to determine delays or frequency composition.
+\subsection{Speed of sound}
+To calculate the speed of sound it is important to know the temperature, presure, humidity and gas/medium. The group didn't bother to analyse the complex formulas taking all these factors into account. We found a general formula for the speed of sound in dry air\\
+The speed of sound in dry air can be calculated by:
+\begin{equation}
+c_air=(331.3+0.606*t)\frac{m}{s}
+\end{equation}
+Where t is the degrees in Celsius. This means the appoximate speed of sound at room temperature is arround $343\frac{m}{s}$.\\
+\subsection{Ultrasound}
+The ultrasonic sound band is all sound frequencies above 20kHz. Below is ilustrated where the different frequencybands are located and what their names are.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{billeder/frequencybands.png}
+\end{figure}
+Because ultrasound is at such high frequencies it is quite ideal for an application as ours since it isn't in the hearable range adn therefore wouldn't interfere with the sound from the instrument. Since ultrasound is at >20kHz it also isn't subject to much noise since not many things oscillate at this frequency.\\
+The problem about ultrasound is the equipment. It is not possible to simply use ultrasound since we need special speakers and microphones to record and play in these frequencies and this equipment wasn't at hand at the time.
+\subsection{Hearable sound}
+Sound in the hearable band (20Hz-20kHz) is a bit easier to work with of several reasons. Since it is actually possible to hear what is going on it might be easier to determine problems. We have a lot of equipment ready, speakers and microphones, which is built to these specific frequencies.
