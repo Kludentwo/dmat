@@ -5,9 +5,18 @@ The ultimate goal is to have a function that - when given the two data sets - wo
 
 When getting to know an algorithm it is useful to use it with well-known, manageable data, such as:
 \\
-Green: [0,1,2,1,0,0,0]\\
-Blue: [0,0,0,1,2,1,0]\\
-The green data set simulates our output audio and the blue data set simulates the recorded audio. When plotting the two signals, we get figure \ref{fig:xcrossSample}. Because the data sets are so small it is very easy to see that the two signals are identical when shifting the blue data set two elements to the left. Our algorithm, cross-correlation, should be able to calculate that. We could either make our own or use an existing. We quickly got to know cross-correlation which was perfect for our needs
+Blue: [0,1,2,1,0,0,0]\\
+Green: [0,0,0,1,2,1,0]\\
+The blue data set simulates our output audio and the green data set simulates the recorded audio. When plotting the two signals, we get figure \ref{fig:xcrossSample}. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/sampleSignals.png}
+\caption{Simple signals}
+\label{fig:xcrossSample}
+\end{figure} 
+
+Because the data sets are so small it is very easy to see that the two signals are identical when shifting the blue data set two elements to the left. Our algorithm, cross-correlation, should be able to calculate that. We could either make our own or use an existing. We quickly got to know cross-correlation which was perfect for our needs
 
 \section{Cross-correlation}
 The cross-correlation algorithm is used for searching a data set for specific features, patterns or identical signals.
@@ -16,7 +25,7 @@ Cross-correlation starts with the rightmost element of one of the data sets and 
 
 Because of this symmetry the result-data set will have a length of N-1 in the range of -N to N.
 
-The equation in \ref{eq:xcross} is the mathematical expression fo cross-correlation of discrete functions.
+The equation in \ref{eq:xcross} is the mathematical expression for cross-correlation of discrete functions.
 \begin{equation}
 \label{eq:xcross}
 \centering
@@ -37,7 +46,7 @@ Instead of letting m be in the range of $-\infty$ to $\infty$, we will let our s
 (f\star g)(t)=\sum\limits_{m=-N}^{m=N}f(t)*g(t+m)
 \end{equation}
 
-Normally, cross-correlation will calculate a negative counterpart in the case that the signal is shifted to the left instead of to the right (the signal is shifted right in \ref{eq:xcrossSample}). Since we in our setup record the audio and then compare the recording with the output we can rule out any left-shifting of the signal. We can do so simply because audio can not be recorded before it has been played. This is an important step in optimization because we have just halved  the amount of operations needed.
+Normally, cross-correlation will calculate a negative counterpart in the case that the signal is shifted to the left instead of to the right (the signal is shifted right in \ref{eq:xcrossSample}). Since we in our setup record the audio and then compare the recording with the output we can rule out any left-shifting of the signal. We can do so simply because audio can not be recorded before it has been played. This is an important step in optimization because we have just halved the amount of operations needed.
 
 Therefore we will have t in the range of $t=0$ to $t=7$. 
 
@@ -60,7 +69,27 @@ As we see the highest value is 6 in element 2 in the results data set. This fits
 
 The next step is to determine an implementation of the algorithm in MatLab. Once again we can choose to use an existing implementation or make our own. We did both.
 
+Starting with our own implementation of the algorithm in Matlab, we had no ambition of being more efficient than the existing solution. We merely did it to see how it could be implemented and to see how deep an impact on performance it would have. 
+In figure \ref{fig:ownImp}\footnote{Full source code in cOptimized.m.pdf}, our full (both negative and positive) implementation of cross correlation is showed. Using the \textit{tic / toc} method in Matlab we can see that our implementation takes between two to four times more time to complete than the integrated implementation. This can be optimized even further, but is not the scope of this project. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/ownImp.png}
+\caption{Custom implementation of cross-correlation}
+\label{fig:ownImp}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/xcorrResult.png}
+\caption{Result of cross correlation}
+\label{fig:xcorrResult}
+\end{figure} 
+
+
 The existing implementation is a function called xcorr. Xcorr, as used by us, takes two parameters: the recorded audio and the output. It returns a data set and a set with the t values from equation \ref{eq:xcross}.
+
+Both xcorr and our own implementation gives figure \ref{fig:xcorrResult} as result when plotted.
 
 \section{Signals}
 To determine which signal type which was most favourable to use we made a script in matlab which generated 3 signal types, here one signal without a delay and one with a delay. This way we can analyse which signals would return the sharpest spike when cross correlated.
@@ -77,7 +106,8 @@ Chirp_signal=chirp(t,Frq1,1,Frq2);              % Chirp signal generation
 Chirp_delayed=[zeros(1,delay) Chirp_signal];    % Chip delay generation
 Chirp_xcorr=xcorr(Chirp_signal,Chirp_delayed);  % Cross-correlation
 \end{lstlisting}
-Below is the plot of the cross-correlation. It shows clearly where the to signal overlap.\\
+
+Below is the plot of the cross-correlation. It shows clearly where the two signals overlap.\\
 \begin{figure}[H]
 \begin{minipage}[b]{0.49\linewidth}
 \centering
@@ -115,7 +145,7 @@ The initial thoughts about a sinusoid were mixed. Since a sinusoid overlaps more
 \end{figure}
 The zoomed plot is zoomed to the same window as the chirp signal. It is clear that the sinusoids peak isn't nearly as distinct as the chirp, hereby making the sinusoid signal less favourable. This also fits with our expectation since the sinusoid is very "simple" in shape compared to the chirp which is more unique.\\
 \subsection{White noise}
-Lastly we tried white noise. We expect this to be very distinct because the signal is very complex and consists of a lot of different frequencies. Therefore the signal will only overlay perfectly in one particular point. A noise signal was generated in matlab using the wgn() function. Below is a plot of the cross correlaltion.\\
+Lastly we tried white noise. We expect this to be very distinct because the signal is very complex and consists of a lot of different frequencies. Therefore the signal will only overlay perfectly in one particular point. A noise signal was generated in matlab using the wgn() function. Below is a plot of the cross correlation.\\
 \begin{figure}[H]
 \begin{minipage}[b]{0.49\linewidth}
 \centering
