@@ -129,7 +129,7 @@ register_handler(ik_ivg9, Sport0_RX_ISR); //Handler
 
 
 
-\subsection{Output}
+\subsection{Output frequency}
 \textbf{Sound}:\\
 The original scope of our project was to have an audio source as our output, while using a sound to measure distance. This worked well since we already had the knowledge from the talkthrough on how to output sound.\\
 We have a multitude of ways to create the sound we are playing. We could either create a sound in matlab and load it or we could create it directly on the blackfin. For testing purposes we chose the matlab solution. This would mean that once we have made the soundbits we wanted to use, we would have to convert them to a format known by the blackfin.
@@ -164,6 +164,7 @@ The function is extremely easy to get going with and very simple to use. Althoug
 The output sound is generated via. decimation and the fact that the system constantly outputs samples with 48kHz.\\
 In matlab we generated a signal of one period with 2000 samples. Running through this one at a time once every 1/48kHz would make an output frequency of: $\frac{48000Hz}{2000}=24Hz$. This is a very low frequent sound so we needed to step faster through this period. A step of 30 each time would give an output frequency of $\frac{48000Hz}{\frac{2000}{30}}=720Hz$. We figured this was nice for a distance of 0mm. Our calculation of distance returnes the distance in mm and since we measure around 3m it would be way to large, since a step of 3030 would go more then through the array with the period making some aliasing problems. We choose to convert the distance from mm til decimeters. This means we go from steps of 30 to steps of 60, making the highest frequency $\frac{48000Hz}{\frac{2000}{30}}=1440Hz$. The frequencies are very distinguishable and also pleasant to hear.\\
 
+
 \subsection{Convert to BF}
 The blackfin has a small "hack" when it comes to loading sound from memory:
 \begin{lstlisting}[language=C]
@@ -172,6 +173,8 @@ short sound_buffer[length_of_signal] = {
 };
 \end{lstlisting}
 This means we have to convert our sound array to a hex format using matlab. The first thing we do when converting is reducing the amplitude of the signal to make sure it fits in a "c style short" datatype. Then we use a function "mydec2hex" which is an improved version of matlabs built-in function "dec2hex". After converting to hex-format we use the file descriptor to save the data into a hex file. The hex file is put in the project folder in VisualDSP++ and the codehack is put where you initialize your variables.
+
+
 
 \subsection{IDE: VisualDSP++}
 \subsubsection{Plot}
@@ -194,6 +197,7 @@ Memory -> Dump
 Set filename, type, size and variable/array name. Matlab can import these files directly.
 
 
+
 \section{System overview/architecture}
 Below is a statemachine describing the flow of the program running of the blackfin.\\
 \begin{figure}[H]
@@ -203,5 +207,29 @@ Below is a statemachine describing the flow of the program running of the blackf
 \end{figure}
 The ISR routine runs once every 1/48000Hz. It calls our function \texttt{\textcolor{blue}{void} Process\_Data(\textcolor{blue}{void})}. This function handles all input and output samples and makes sure when to stop record and playback.\\
 \section{Our Xcorr}
-Description\\
-Implementation\\
+To explore performance on the blackfin regarding cross correlation, we wanted to see how much of a performance loss we would get, if we implemented our own implementation of the cross correlation in c using short integers. The implementation is just a c variant of the implementation shown in Algorithm Development. We counted the clock cycles using the cycle\_count.h library. We expected the custom implementation to be significantly slower than the integrated considering it was not even in assembly.
+We see that the performance loss is of factor ~12 which corresponds to our expectations.
+
+\begin{table}
+    \begin{tabular}{|l|l|}
+    \hline
+    Performance                          & Clock cycles \\ \hline
+    Custom implementation                & 288.292.009  \\
+    crosscorr\_fr16 (integrated function) & 24.174.317   \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{lstlisting}[language=C]
+		for (i = 0; i < SAMPLES; i++)
+		{
+    		for (delayedIndex = i; delayedIndex < SAMPLES; delayedIndex++)
+    		{
+    			//Delayed gange ikke delayed
+        		corr2[i] = corr2[i] + ((delayedSig[delayedIndex])*(origSig[originalIndex]) >> 24);
+        		originalIndex++;
+    		}
+    		originalIndex = 0;
+		}
+\end{lstlisting}
+
+As seen in the code we bit shift the multiplication 24 times. This is done to remain within our data format, short. This doesn't effect our result in the exact spot here as the relative differences between the samples are kept. But this doesn't scale well. If the amplitude of the signal is too small, the bit shifting will remove the signal and our cross correlation result won't be correct. Also, bit shifting might not even be enough if the signals are large enough in amplitude.
