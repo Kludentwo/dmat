@@ -177,6 +177,28 @@ hest
 \section{Code functions}
 \textbf{Defines:}\\
 
+\subsection{Process\_data}
+\subsubsection{Responsibility}
+The responsibility of this c-file is to handle the data. It consist of two functions described below.
+\subsubsection{Function descriptions}
+\begin{table}[H]
+\begin{tabular}{l p{12.5cm}}
+\multicolumn{2}{l}{\texttt{\textcolor{blue}{void} Process\_Data( \textcolor{blue}{void})}} \\
+\hline
+Description:& The function handles input and output data, both chirp output and the sound for distance output. Depending of flags it records and plays audio.\\
+Parameter(s):&None\\
+Return:&None\\
+\end{tabular}
+\end{table}
+\begin{table}[H]
+\begin{tabular}{l p{12.5cm}}
+\multicolumn{2}{l}{\texttt{\textcolor{blue}{int} totaldist calc\_dist( \textcolor{blue}{short*} corr)}} \\
+\hline
+Description:& The function calculates the distance to the object using the correlation array "corr".\\
+Parameter(s):&\texttt{\textcolor{blue}short*} corr\\
+Return:&\texttt{\textcolor{blue}int} totaldist\\
+\end{tabular}
+\end{table}
 
 \textbf{calc$\_$dist}:\\
 \begin{lstlisting}[language=C]
