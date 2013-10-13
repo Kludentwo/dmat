@@ -1,16 +1,40 @@
 \chapter{Results}
-The systems works quite well within most of the requirements from specification although not all specifications have been completely fulfilled. The precision is not within 5 cm but rather 10 cm, but this could have easily been calibrated. The system updated around 12 times a second which is somewhat real time. This could have also been improved but wasn't really necessary.
+The systems works quite well within most of the requirements from specification although not all specifications have been completely fulfilled. The precision is not within 5 cm but rather 10 cm, but this could have easily been calibrated. The system updated around 12 times a second which is somewhat real time. This could have also been improved but wasn't really necessary.\\
+The final result is shown on figure~\ref{fig:totalsys}. A graphical presentation of our results is shown in table~\ref{table:alltest}
+\begin{figure}[hbpt]
+\centering
+\includegraphics[scale=0.2]{billeder/totalsys}
+\caption{Total system}
+\label{fig:totalsys}
+\end{figure}
 
+\begin{table}[H]
+\centering
+\begin{tabular}{c c c c}
+\hline
+Approved & Approved with comment & Not approved & Not tested \\
+$\surd$ & $\times$ & $\div$ & $\diamond$ \\\hline
+\end{tabular}
+\caption{Test Approval Categories}
+\end{table}
 
-
-
-
-
-
-
-
-
-
+\begin{table}[H]
+\centering
+\begin{tabular}{ c c c }
+\hline
+Requirement: & Status & Comment \\ \hline
+Use of DSP & $\surd$ \\
+Sound output & $\surd$ \\
+Sound input & $\surd$ \\
+Precision: <5 cm & $\times$ & <10 cm which is acceptable for now \\
+Range: 25cm - 250 cm & $\surd$ \\
+Frequency band: 14 - 16 kHz & $\surd$ \\
+Memory: max 32kB & $\surd$ \\
+System must be real-time & $\times$ & Acceptable for now \\ \hline
+\end{tabular}
+\caption{Requirement results}
+\label{table:alltest}
+\end{table}
 
 \chapter{Improvements}
 This chapter contains thoughs about the improvements we want to make to our system but did not have the time to do.
