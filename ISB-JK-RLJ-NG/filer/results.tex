@@ -63,7 +63,9 @@ The idea would be to set intervals for distance much like the distance between k
 \label{fig:pianokeys}
 \end{figure}
 \section{Buffers sizes}
-In this project we went along with somewhat "random" sizes of buffers for our signals. We used a good rule of thump and chose some sizes we know would be sufficient. This has a disadvantage which we chose not to work further with and that is the computation time. By only using buffers which can hold samples representing the maximum time the sound would travel we could use the time of which we record and the time it would take to compute the correlation of the signals.\\
+In this project we went along with somewhat "random" sizes of buffers for our signals. We used a good rule of thumb and chose some sizes we know would be sufficient. 
+This comes as a disadvantage which we chose not to develop a solution for and that is the computation time.
+ By only using buffers which can hold samples representing the maximum time the sound would travel, we could use the time of which we record and the time it would take to compute the correlation of the signals.\\
 An optimal size of buffer for a max distance of 250 cm would be:\\
 \begin{equation}
 \frac{\frac{buffer\ size}{48000Hz}*343\frac{m}{s}}{2}=250cm
