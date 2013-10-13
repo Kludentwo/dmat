@@ -1,6 +1,8 @@
-\chapter{systemtestandoptimization}
-Vi begynder nu at tage de tests som vi har lavet i den sidste periode og bearbejde dem. Alle overvejelser omkring C-koden og egen implementation af xcorr skal også ind her. Særligt de operationsmålinger som vi (desværre) ikke fik taget billeder af. D'oh Rasmus! Der skal også lineariseringen som Johnny har arbejdet på ind her
+\chapter{System test and optimization}
+%Vi begynder nu at tage de tests som vi har lavet i den sidste periode og bearbejde dem. Alle overvejelser omkring C-koden og egen implementation af xcorr skal også ind her. Særligt de operationsmålinger som vi (desværre) ikke fik taget billeder af. D'oh Rasmus! Der skal også lineariseringen som Johnny har arbejdet på ind her
 \section{Test setup}
+During test of the system we choose two paths. One was optimization of clocks and hereby how responsive our system could be. This test will hereafter be called "System clocks".\\
+The other test is precision test. How precise can the system measure distance. This test will hereafter be called "Full system test".\\
 \subsection{System clocks}
 The amount of clocks used by our system is a pointer for how efficient the system is and how much time it takes for the system to run. To find the system clocks add -DDO$\_$CYCLE$\_$COUNTS to the compiler. Add the following code:\\
 \begin{lstlisting}
@@ -11,20 +13,21 @@ START_CYCLE_COUNT(start_count);
 >> your code <<
 STOP_CYCLE_COUNT(stop_count, start_count);
 \end{lstlisting}
+After this we can read the clock count and hereby determine the efficiency.
 \subsection{Full system test}
 The setup consists of 2 speakers, a microphone and a blackfin bf533 kit connect to a computer running VisualDSP++. One of the speakers is connected to the blackfins left audioport0 and one is connected to the right audioport0. The microphone is connected to the blackfins left inputport0. 
 
-\section{Test description}
+\section{Test procedure}
 \subsection{System clocks}
 Run the program in the VisualDSP++ debugger and put a breakpoint after the STOP part of the cycle counter. Read the cycles with:
 \begin{verbatim}
 View -> Debug Windows -> Locals
 \end{verbatim}
 \subsection{Full system test}
-A piece of wood is placed at fixed intervals in front of the system. These intervals are in millimetres: 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500. The output is found in the VisualDSP++ debugger by placing a breakpoint after measuring distance. 
-
+A piece of wood is placed at fixed intervals in front of the system. These intervals are in millimetres: 250, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500. The output is found in the VisualDSP++ debugger by placing a breakpoint after measuring distance. All distances and corresponding measurement is noted.
 \section{Test results}
 \subsection{system clocks}
+Below is listed the results from the system clocks test.
 \begin{table}[H]
 \centering
     \begin{tabular}{|l|l|}
@@ -34,8 +37,10 @@ A piece of wood is placed at fixed intervals in front of the system. These inter
     stop$\_$count         & 285290476         \\ \hline
     Program total      & 283905096         \\ \hline
     \end{tabular}
+    \caption{System clocks results}
 \end{table}
 \subsection{Full system test}
+Below is listed the results from the full system test.
 \begin{table}[H]
 \centering
     \begin{tabular}{|l|l|}
@@ -52,10 +57,21 @@ A piece of wood is placed at fixed intervals in front of the system. These inter
     2250               & 2434                   \\ \hline
     2500               & 2801                   \\ \hline
     \end{tabular}
+    \caption{Full system test results}
 \end{table}
 \section{Optimization}
 \subsection{Optimization of distance calculation}
-\fixme{Johnny er god til excel og optimisering}
+As seen in the results of the full system test it is clear that there exists some kind of offset and a sensitivity drift. Below is a plot of the distances measured compared to the real distance:\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{billeder/first_test_results_graph}
+\caption{Distance performance graph}
+\end{figure}
+The tendency line plotted in excels shows how much off we are since the function for the graph should have been y=1x. Therefore we need to find what values to subtract and divide from our measurements to calibrate our system. The function is found to be:\\
+\begin{equation}
+Calibrated_{meas}=1.095*Original_{meas}-426
+\end{equation}
+These values are implemented in the system and another iteration of test is performed.\\
 \section{Optimized test results}
 The results found in this chapter are from tests done the same way as previously except with the system optimized.
 \subsection{Full system test}
@@ -75,4 +91,13 @@ The results found in this chapter are from tests done the same way as previously
     2250               & 2316                   \\ \hline
     2500               & 2528                   \\ \hline
     \end{tabular}
+    \caption{Full system test results with optimized precision}
 \end{table}
+To visualize the improvement a similar graph as from optimization is made to compare the new results with the old.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{billeder/first_test_results_graph_optimized}
+\caption{Distance performance graph optimized}
+\end{figure}
+Obviously the results has been improved a lot. The reason for the constant offset of the 42cm is due to group delay on the blackfin board.\\
+The optimization made isn't much of a perfomance issue since the blackin dsp is made to perform multiplication and addition tasks.\\
