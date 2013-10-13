@@ -1,20 +1,65 @@
-\chapter{Algorithm development}
+\chapter{Aalgorithm development}
 Her finder vi to signaler og så vores ønske output. Vi skal finde den algorithme som giver det ønskede output. De to inputs kan være vores skubbede chirp eller vores simple arrayindekseret output. Det ønskede output er xcorr funktionen fra matlab
 Vi skulle også gerne i det her punkt have fundet nogle krav - fx at vi bør bruge så og så mange samples eller vi skal bruge en bestemt frekvens / frekvens span
 
+In the analysis we chose to use audio to measure the distance. As the main principle is to use the speed of sound to calculate the distance, we will need to play some audio and record it when it returns again. The task is then to calculate the time elapsed between the moment we play it and the moment we record it again. The algorithm should be able to recognize the signal as it returns. 
 
+The ultimate goal is to have a function that - when given the two data sets - would provide the distance to the specific object.
 
+When getting to know an algorithm it is useful to use it with well-known, manageable data, such as:
+\\
+Green: [0,1,2,1,0,0,0]\\
+Blue: [0,0,0,1,2,1,0]\\
+The green data set simulates our output audio and the blue data set simulates the recorded audio. When plotting the two signals, we get figure \ref{fig:xcrossSample}. Because the data sets are so small it is very easy to see that the two signals are identical when shifting the blue data set two elements to the left. Our algorithm, cross-correlation, should be able to calculate that. We could either make our own or use an existing. We quickly got to know cross-correlation which was perfect for our needs
 
+\section{Cross-correlation}
+The cross-correlation algorithm is used for searching a data set for specific features, patterns or identical signals.
 
+Cross-correlation starts with the out most right element of one of the data sets and multiplies this value with the out most left element of the second data set. This is then stored and the next step is done. The next step is to multiply the out most right element with the second out most left element of the second data set and then added to the result of the multiplication of the out most left element in the first data set and the second out most right element of the second set. This means that the element in the result-data set is the result of one multiplication, then two multiplications added, three multiplications added up till a result consisting of the sum of N multiplications where N is the size of the data set that is outputted. Depending on the size of the recorded audio there might be several results consisting of the sum of N multiplications. Eventually there will be N-1 multiplications and then down untill there is only one multiplication again - this time on the other side of the data set.
 
+Because of this symmetry the result-data set will have a length of N-1 in the range of -N to N.
 
+The equation in \ref{eq:xcross} is the mathematical expression fo cross-correlation of discrete functions.
+\begin{equation}
+\label{eq:xcross}
+\centering
+(f\star g)(t)=\sum\limits_{m=-\infty}^{m=\infty}f(t)*g(t+m)
+\end{equation}
 
+Instead of letting m be in the range of $-\infty$ to $\infty$, we will let our sample size control the range, as in equation \ref{eq:xcrossN}
 
+\begin{equation}
+\label{eq:xcross2}
+\centering
+(f\star g)(t)=\sum\limits_{m=-7}^{m=7}f(t)*g(t+m)
+\end{equation}
 
+\begin{equation}
+\label{eq:xcrossN}
+\centering
+(f\star g)(t)=\sum\limits_{m=-N}^{m=N}f(t)*g(t+m)
+\end{equation}
 
+Normally, cross-correlation will calculate a negative counterpart in the case that the signal is shifted to the left instead of to the right (the signal is shifted right in \ref{eq:xcrossSample}). Since we in our setup record the audio and then compare the recording with the output we can rule out any left-shifting of the signal. We can do so simply because audio can not be recorded before it has been played. This is an important step in optimization because we have just doubled down the amount of operations needed.
 
+Therefore we will have t in the range of $t=0$ to $t=7$. 
 
+We can then, following equation \ref{eq:xcross2}, calculate the cross-correlation:
 
+\begin{center}
+$(f\star g)(0)=f(0)*g(0+(-7)+f(0)*g(0+(-6))+...+f(0)*g(0+6)+f(0)*g(0+7)$\\
+$(f\star g)(1)=f(1)*g(1+(-7)+f(1)*g(1+(-6))+...+f(1)*g(1+6)+f(1)*g(1+7)$\\
+$(f\star g)(2)=f(2)*g(2+(-7)+f(2)*g(2+(-6))+...+f(2)*g(2+6)+f(2)*g(2+7)$\\
+$...$\\
+$(f\star g)(6)=f(6)*g(6+(-7)+f(6)*g(6+(-6))+...+f(6)*g(2+6)+f(6)*g(6+7)$\\
+$(f\star g)(7)=f(7)*g(7+(-7)+f(7)*g(7+(-6))+...+f(7)*g(3+6)+f(7)*g(7+7)$\\
+\ \\
+$(f\star g)(0:7)=[1\ 4\ 6\ 4\ 1\ 0\ 0\ 0]$\\
+\end{center}
+
+Because of the nature of the math in the cross-correlation we will have the highest value in the element with the value identical to the times the recorded signal has to be shifted to the left in order to be identical to the output signal. This can be used to calculate the distance. More on that later.
+
+As we see the highest value is 6 in element 2 in the results data set. This fits with our own initial thoughts.
 
 \section{Signals}
 To determine which signal type which was most favourable to use we made a script in matlab which generated 3 signal types, here one signal without a delay and one with a delay. This way we can analyse which signals would return the sharpest spike when cross correlated.
