@@ -202,116 +202,13 @@ Set filename, type, size and variable/array name. Matlab can import these files 
 
 
 \section{System overview/architecture}
-hest
-
-\section{Code functions}
-\textbf{Defines:}\\
-
-\subsection{Process\_data}
-\subsubsection{Responsibility}
-The responsibility of this c-file is to handle the data. It consist of two functions described below.
-\subsubsection{Function descriptions}
-\begin{table}[H]
-\begin{tabular}{l p{12.5cm}}
-\multicolumn{2}{l}{\texttt{\textcolor{blue}{void} Process\_Data( \textcolor{blue}{void})}} \\
-\hline
-Description:& The function handles input and output data, both chirp output and the sound for distance output. Depending of flags it records and plays audio.\\
-Parameter(s):&None\\
-Return:&None\\
-\end{tabular}
-\end{table}
-\begin{table}[H]
-\begin{tabular}{l p{12.5cm}}
-\multicolumn{2}{l}{\texttt{\textcolor{blue}{int} totaldist calc\_dist( \textcolor{blue}{short*} corr)}} \\
-\hline
-Description:& The function calculates the distance to the object using the correlation array "corr".\\
-Parameter(s):&\texttt{\textcolor{blue}short*} corr\\
-Return:&\texttt{\textcolor{blue}int} totaldist\\
-\end{tabular}
-\end{table}
-
-\textbf{calc$\_$dist}:\\
-\begin{lstlisting}[language=C]
-int time = 0;
-int fs = 48;
-int velocity = 340;
-int dist = 0;
-int totaldist = 0;
-int numDist = 0;
-int sound_factor=0;
-int avg = 10;
-int place = 0;
-int myCount = 0;
-int maxNum = 0;
-int olddist = 0;
-//filter coeficients:
-float alpha = 0.3;
-
-int calc_dist(short* corr){
-	maxNum = 0;
-            
-	for(myCount = 0; myCount < SAMPLES; myCount++)
-	{
-		if(corr[myCount] > maxNum)
-		{
-			maxNum = corr[myCount];
-			place = myCount;	
-		}
-		if(myCount == (SAMPLES - 1))
-		{
-			time = (place*100)/fs;
-			dist = (1.096*(time * velocity)/200)-425;
-		}
-	}
-	//average distance:
-	olddist = totaldist;
-	totaldist = dist*alpha + olddist*(1-alpha);
-	
-	sound_factor = totaldist/100;
-	return totaldist;	
-}
-\end{lstlisting}
-\textbf{Discription of calc$\_$dist function:}\\
-
-\textbf{Process$\_$Data}:\\
-\begin{lstlisting}[language=C]
-void Process_Data(void)
-{
-	// Output Del
-	if(num1>OUTPUTLEN){
-		playFlag = 0;
-	}
-	if(playFlag){
-		yn = (sound[num1] << 2);
-		iChannel0LeftOut = (yn << 16);
-			
-	}
-	
-	if(num1>INPUTLEN){
-		recFlag = 0;
-	}
-	if(recFlag)
-	{
-		soundIn[num1] = (short)(iChannel0LeftIn >> 14);
-	}
-	num1++;
-	num2 = num2 + 20 + sound_factor; //Soundfactor is the distance in 1/10 meter
-	num2 = num2 % 2000; 	// because the sinus buffer is 2000 samples
-				// we want the remainder of 2000
-				//because maybe num2 become more 
-				//then just 1 more the 2000 
-				//and we want the sinus to flow
-	
-	if(num1>5000){
-		doX = 1;
-	}
-	xn = sinus[num2];
-	
-	iChannel0RightOut = (xn << 16);
-}
-\end{lstlisting}
-
-\section{Signal/datatypes}
+Below is a statemachine describing the flow of the program running of the blackfin.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{billeder/code_statemachine}
+\caption{Program statemachine}
+\end{figure}
+The ISR routine runs once every 1/48000Hz. It calls our function \texttt{\textcolor{blue}{void} Process\_Data(\textcolor{blue}{void})}. This function handles all input and output samples and makes sure when to stop record and playback.\\
 \section{Our Xcorr}
 Description\\
 Implementation\\

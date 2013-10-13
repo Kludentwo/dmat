@@ -101,3 +101,19 @@ To visualize the improvement a similar graph as from optimization is made to com
 \end{figure}
 Obviously the results has been improved a lot. The reason for the constant offset of the 42cm is due to group delay on the blackfin board.\\
 The optimization made isn't much of a perfomance issue since the blackin dsp is made to perform multiplication and addition tasks.\\
+\section{Averaging of distance}
+While making all the test we did we noticed the output frequency generated based on the measured distance wasn't always stationary. We wanted to fix this and therefore implemented an averaging algorithm. The least recourse consuming averaging we knew of was the exponential averaging filter. Below is a sketch of how it works.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{billeder/exp_avg}
+\caption{Exponential averaging filter}
+\end{figure}
+The figure is from the book "Understanding Digital Signal Processing" by Richard G- Lyons. As illustrated in the figure it multiplies the current sample with the alpha filter coefficient, it then multiplies the last sample ($Z^{-1}$) with 1-alpha. This effectively  weight the samples with alpha and hereby the "weight" of the old samples still effects the outcome (depending on the alpha value) several samples after it has been used.\\
+Using "trial \& error" we found an alpha value of 0.2. An alpha of this size means a somewhat significant averaging since we only use .2 of every new sample and .8 of the old calculated value.\\
+We then tested how responsive the system was to distance change. Looking at the average the filter actually takes the exact same number of samples each time to settle at a specific distance, namely around 10-12 samples. In our system it meant around 1 second which we found sufficient.\\
+Below is 30 samples in a row showing the settling of a distance measurement to a fixed distance of 1250 mm.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{billeder/avg_chart}
+\caption{Chart showing exponential averaging filter}
+\end{figure}
