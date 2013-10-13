@@ -116,3 +116,35 @@ Below is 30 samples in a row showing the settling of a distance measurement to a
 \includegraphics[width=0.9\textwidth]{billeder/avg_chart}
 \caption{Chart showing exponential averaging filter}
 \end{figure}
+\section{Group delay}
+A common delay in amplified systems is called group delay and involves a time delay invoked by the system. \\
+We do not know exactly how great this group delay is, but looking at our optimization from earlier we see an offset of 425 mm which at the speed of sound is  $\frac{425mm}{343\frac{m}{s}}=1.3ms$. This does not seem too unreasonable to us that the accumulated delay in the system accounts for 1.3 ms.\\
+\section{Doppler effect}
+During our various tests we found that our system was sensitive to the vibration of the wooden plate on which we bounced our signal. Below is a plot of our distance measurements over 30 measurements.\\
+\begin{figure}[H]
+\centering
+\includegraphics[width=.8\textwidth]{billeder/sensitivity}
+\caption{sensitivity plot from VisualDSP++}
+\end{figure}
+We think the doppler effect is a big part of the issue here. According to wikipedia\footnote{\url{http://en.wikipedia.org/wiki/Doppler_effect}} the change in frequency caused by a velocity on a certain frequency can be easily calculated. Assuming the wood plate travels at 10cm/s (which is pretty slow) the doppler effect would change the frequency with around 4.5Hz.\\
+To our system this would in fact be interpreted as if the signal arrived earlier then it actually does because the correlation will change. According to some rought calculations this could actually account for more then 50-70cm in displacement of our measurements.\\
+This is not something we can do much to and it surprised the group quite a big deal, we are not entirely convinced this is the entirety of the problem but it is highly likely that it has a noticeable impact.\\
+\section{speaker/microphone angle}
+Another optimization problem is caused by the angel on which the signal hits the wooden plate because the microphone and speaker cannot be placed within each other. Below on the left is a sketch of how the signal hits at an angel and how the calculated distance and the actual distance is different. On the right is a graph showing the calculated distance compared to the actual distance.
+\begin{figure}[H]
+\begin{minipage}[b]{0.49\linewidth}
+\centering
+\includegraphics[width=1\textwidth]{billeder/angle_error}
+\caption{Angle figure}
+\end{minipage}
+\hspace{0.5cm}
+\begin{minipage}[b]{0.49\linewidth}
+\centering
+\includegraphics[width=1\textwidth]{billeder/angle_graph}
+\caption{Angle graph}
+\end{minipage}
+\end{figure}
+As shown in the graph the impact is only significant at very short distances (0-25cm). Therefore we do not take this effect into account.\\
+The function for the graph is(by the principle of our dear friend Pythagoras):\begin{equation}
+\sqrt{\left(\frac{speaker/mic\ distance}{2}\right)^2+calculated\ distance^2}=acutal\ distance
+\end{equation}
