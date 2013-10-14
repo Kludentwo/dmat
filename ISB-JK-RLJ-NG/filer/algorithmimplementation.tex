@@ -206,7 +206,7 @@ Below is a statemachine describing the flow of the program running of the blackf
 \caption{Program statemachine}
 \end{figure}
 The ISR routine runs once every 1/48000Hz. It calls our function \texttt{\textcolor{blue}{void} Process\_Data(\textcolor{blue}{void})}. This function handles all input and output samples and makes sure when to stop record and playback.\\
-\section{Our Xcorr}
+\section{Custom cross-correlation implementation}
 To explore performance on the blackfin regarding cross correlation, we wanted to see how much of a performance loss we would get, if we implemented our own implementation of the cross correlation in c using short integers. The implementation is just a c variant of the implementation shown in Algorithm Development. We counted the clock cycles using the cycle\_count.h library. We expected the custom implementation to be significantly slower than the integrated considering it was not even in assembly.
 We see that the performance loss is of factor ~12 which corresponds to our expectations.
 
